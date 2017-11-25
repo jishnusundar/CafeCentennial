@@ -8,8 +8,8 @@ let User = UserModel.User;
 module.exports.displayLogin = (req,res,next) => {
   return res.render('index/login',{
 title:'Login',
-messages: req.flash('loginMessage'),
-        user:req.user?req.user.username:''
+/*messages: req.flash('loginMessage'),
+        user:req.user?req.user.username:''*/
   });
 }
 

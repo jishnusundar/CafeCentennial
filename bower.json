@@ -1,0 +1,28 @@
+{
+  "name": "cafe_centennial",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "Jishnu, Max, Amandeep, Karuna, Shahid"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "Node.js",
+    "Express",
+    "Ejs"
+  ],
+  "homepage": "https://github.com/jishnusundar/CafeCentennial",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/Scripts/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "2.2.4",
+    "bootstrap": "^3.3.7",
+    "font-awesome": "^4.7.0"
+  }
+}
