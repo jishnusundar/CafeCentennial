@@ -20,8 +20,11 @@ let UserSchema = new Schema({
  email: {
      type: String,
      default: '',
-     trim: true, //string only
-     required: 'Email is required' //message to flash box 
+     trim: true, //string only,
+     validator: function(v) {
+            return /(.+)@my.centennialcollege.ca/.test(v);
+          },
+     required: 'A valid Centennial domain e-mail is required' //message to flash box 
  }
 },
 {
