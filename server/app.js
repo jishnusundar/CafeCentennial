@@ -28,14 +28,8 @@ db.once('open', () => {
   console.log("Conneced to MongoDB...");
 });
 
-// define routers
-let index = require('./routes/index'); // top level routes
-
-/*let auth = require('./routes/auth');
-let profile = require('./routes/profile');
-let survey = require('./routes/surveys');
-let respond = require('./routes/respond');*/
-
+// define controllers
+let indexController = require('./controllers/index'); // top level routes
 
 
 
@@ -65,12 +59,8 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-// route redirects
-app.use('/', index);
-/*app.use('/auth',auth);
-app.use('/profile',profile);
-app.use('/survey',survey);
-app.use('/respond',respond);*/
+// redirect incoming requests routes to appropriate controllers
+app.use('/', indexController);
 
 //Passport User Configuration
 let UserModel = require('./models/users')
@@ -85,7 +75,7 @@ passport.deserializeUser(User.deserializeUser());
       res.status(400);
      res.render('errors/404',{
       title: '404: File Not Found',
-      user:req.user?req.user.username:''
+      
     });
   });
 
@@ -95,7 +85,7 @@ passport.deserializeUser(User.deserializeUser());
       res.render('errors/500', {
         title:'500: Internal Server Error',
         error: error,
-        user:req.user?req.user.username:''
+        
       });
   });
 
