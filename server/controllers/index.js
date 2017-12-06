@@ -29,5 +29,16 @@ app.get('/restaurant',(req,res,next) => {
   });
 });
 
+app.get('/checkout',(req,res,next) => {
+  return res.render('index/checkout',{
+   title:'Checkout',
+  });
+});
+
+app.get('/addToCart',(req,res,next) => {
+  return res.render('index/addToCart',{
+   title:'Add to Cart',
+  });
+});
 
 module.exports = app;
