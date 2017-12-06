@@ -1,4 +1,7 @@
 body{
+       /* Amandeep Aujla/
+    /* TO DO: Find a font family*/
+
     /* Blue: #115f9a
        Green: #71b21d 
        Light-Grey: #d6d6d6
@@ -53,4 +56,35 @@ body{
 
 .green-color{
     background-color: #71b21d;
+}
+
+
+.main-layout-box{
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;
+    background-color: white;
+}
+
+.inner-layout-box{
+    padding: 10%;
+}
+.nav-bar-style{
+    height: 20px;
+    min-height: 4em;
+    background-color: #563d7c;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
+}
+
+.my-heading{
+    color: #71b21d ;
+    font-size: 2.6em;
+    font-weight: 1;
+}
+
+hr.style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
 }
