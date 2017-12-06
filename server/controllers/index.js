@@ -23,6 +23,11 @@ title:'Welcome To CafeCentennial',
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ROUTERS XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
+app.get('/restaurant',(req,res,next) => {
+  return res.render('index/restaurant',{
+   title:'Restaurant',
+  });
+});
 
 
 module.exports = app;
