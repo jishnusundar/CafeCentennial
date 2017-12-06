@@ -12,7 +12,7 @@ body{
        font-weight: normal;
        line-height: 1.5;
        color: #0a0a0a;
-       background: #fefefe;
+       background: #1c1c1c;
        -webkit-font-smoothing: antialiased;
 }
 
@@ -30,7 +30,7 @@ body{
     background-color: #1c1c1c;
     width: 100%;
     height: 100vh;
-    position: fixed;
+    /*position: fixed;*/
     opacity: 0.9;
 }
 
@@ -82,9 +82,40 @@ body{
     font-weight: 1;
 }
 
-hr.style-one {
+.style-one {
     border: 0;
     height: 1px;
     background: #333;
     background-image: linear-gradient(to right, #ccc, #333, #ccc);
+}
+
+.box.grid.recipes img {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+
+.box.grid.recipes {
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    text-align: center;
+    border: 1px solid #dedede;
+}
+.box.grid.recipes .by {
+    padding: 10px 15px;
+    text-align: left;
+    color: #fff;
+    background-color: #71b21d;
+}
+.box.grid.recipes h2 a {
+    color: #333;
+}
+
+.box.grid.recipes .tag, .box.grid.recipes h2, .box.grid.recipes p {
+    padding-right: 15px;
+    padding-left: 15px;
 }
