@@ -1,26 +1,6 @@
-let mongoose = require('mongoose');
-let passport = require('passport');
-
-let express = require('express');
-let app = express.Router();
-
-//define the user model
-let UserModel = require('../models/users')
-let User = UserModel.User;
-
-// Just use app.get to attach view files to a route
-//--------------------------------- ROUTERS---------------------------------
-app.get('/',(req,res,next) => {
-  return res.render('index/login',{
-title:'Login',
-messages:''
-  });
-});
-
 app.post('/',(req,res,next)=>{
-if(req.body.emailId=='')
+if(req.body.emailId==null)
 {
-  console.log("Entered here!!")
  //Assume user is existing, check if username exist in records and authenticate
  User.find( {"username":req.body.username},(err, users) => {
     if (err) {
@@ -52,7 +32,6 @@ if(req.body.emailId=='')
 }
 else //if email id provided, check email valid, register the user and authenticate
 {
-  var regex = new RegExp("(.+)@my.centennialcollege.ca")
     if(!regex.test(req.body.emailId))
   {
     //if email id not a valid centennial id
@@ -60,7 +39,7 @@ else //if email id provided, check email valid, register the user and authentica
 return res.render('index/login', {
             title: 'Try Again',
               messages: 'Enter a Centennial email ID',
-             
+              user:req.user?req.user.username:''
             
           });
   }
@@ -96,31 +75,3 @@ return res.render('index/login', {
   }
 }
 });
-
-app.get('/home',(req,res,next) => {
-return res.render('index/home',{
-title:'Welcome To CafeCentennial',
-  }); 
-});
-
-//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ROUTERS XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-app.get('/restaurant',(req,res,next) => {
-  return res.render('index/restaurant',{
-   title:'Restaurant',
-  });
-});
-
-app.get('/checkout',(req,res,next) => {
-  return res.render('index/checkout',{
-   title:'Checkout',
-  });
-});
-
-app.get('/addToCart',(req,res,next) => {
-  return res.render('index/addToCart',{
-   title:'Add to Cart',
-  });
-});
-
-module.exports = app;

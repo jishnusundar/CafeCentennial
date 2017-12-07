@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>CafeCentennial</title>
+    <title><%= title %></title>
 
  <!-- Custom StyleSheet -->
      <link href="/Content/reset.css" rel="stylesheet">
@@ -28,18 +28,28 @@
         <div class="large-8 columns large-centered text-center">
         <div class="login-box">
         <h5>Login<h5>
+        
         <!--========================Login Form=============================-->
-           <form>
+       <% if (messages.length > 0) { %>
+        <div class="alert alert-danger"><%= messages %></div>
+      <% } %>
+      
+           <form method="post">
               <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <label for="exampleInputEmail1">Email address (for activation only)</label>
+                <input type="email" name="emailId" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                 <small id="emailHelp" class="form-text text-muted">Please enter your Centennial email</small>
               </div>
               <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <label for="exampleInputPassword1">Username</label>
+                <input type="text" name="username" class="form-control" id="exampleInputPassword1"  required>
               </div>
-              <button type="submit" class="btn green-color">Submit</button>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+              </div>
+              
+              <button type="submit" class="btn green-color">Login</button>
             </form>
         </div>
         <div>
