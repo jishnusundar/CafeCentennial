@@ -10,16 +10,16 @@
       <hr class="style-one">
       </div>
 
+
           <div class="row">
-            <div class="col-xs-6 col-md-4">
-            <button type="button" class="btn btn-primary btn-lg btn-block">Restaurant 1</button>
+            
+               <% for (let count = 0; count < restaurants.length; count++) {  %>
+                <% let redirectLink = "/restaurant/"+restaurants[count].name %>
+    <div class="col-xs-6 col-md-4">
+            <button onclick="window.location.href='<%= redirectLink %>'" type="button" class="btn btn-primary btn-lg btn-block"><%=   restaurants[count].name %></button>
             </div>
-            <div class="col-xs-6 col-md-4">
-            <button type="button" class="btn btn-primary btn-lg btn-block">Restaurant 2</button>
-            </div>
-            <div class="col-xs-6 col-md-4">
-            <button type="button" class="btn btn-primary btn-lg btn-block">Restaurant 3</button>
-            </div>
+        
+<% } %> 
           </div>
           </div>
 

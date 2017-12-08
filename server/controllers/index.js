@@ -8,6 +8,10 @@ let app = express.Router();
 let UserModel = require('../models/users')
 let User = UserModel.User;
 
+let restaurant = require('../models/restaurants');
+let menuItem = require('../models/menuItems');
+
+
 function requireAuth(req,res,next) {
   //check if the user is logged in, else prompt to log in
   if(!req.isAuthenticated()) {
@@ -111,17 +115,41 @@ app.get('/logout',(req,res,next)=> {
 })
 
 app.get('/home',requireAuth,(req,res,next) => {
-return res.render('index/home',{
-title:'Welcome To CafeCentennial',
-  }); 
+
+restaurant.find((err, restaurants) => {
+    if (err) {
+      return console.error(err);
+    }
+    else {
+     return res.render('index/home',{
+        title:'Welcome Online',
+        user:req.user?req.user.username:'',
+        restaurants: restaurants
+    });
+    }
+  });
+
+ 
 });
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ROUTERS XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-app.get('/restaurant',(req,res,next) => {
-  return res.render('index/restaurant',{
-   title:'Restaurant',
+app.get('/restaurant/:restaurantName',(req,res,next) => {
+
+menuItem.find({"restaurant":req.params.restaurantName},(err, items) => {
+    if (err) {
+      return console.error(err);
+    }
+    else {
+     return res.render('index/restaurant',{
+        title:'Welcome Online',
+        user:req.user?req.user.username:'',
+        items: items,
+        restaurant:req.params.restaurantName
+    });
+    }
   });
+
 });
 
 app.get('/checkout',(req,res,next) => {
