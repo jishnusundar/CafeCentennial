@@ -4,13 +4,22 @@
     <div class="inner-layout-box">
 
     
+      
         <div class="row">
         <div class="my-heading">Restaurant 1</div>
         <hr class="style-one">
+        
+        <div class="collapse" id="collapseExample">
+        <div class="alert alert-success">
+          You have <strong>x</strong> items in the cart
+        </div>
+
+       
         </div><!-- /row -->
         
         <div class="row">
             
+            <!--===========================Only this item is implemented to show on a message on click of button=================================================================================================-->
             <div class="col-lg-4 col-sm-6">
             <div class="box grid recipes">
             <!--TO DO: Have to seprate name and cost for easy functionality-->
@@ -22,11 +31,12 @@
             <p></p>
             <div class="tag">
             <!--TO DO: I can change this to like icon, not sure why it is for-->
-            <a href=""><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+            <a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
             </div>
             </div>
             </div>
 
+              <!--====================================================================================================================================================================================================================-->
             <div class="col-lg-4 col-sm-6">
             <div class="box grid recipes">
             <div class="by">Item Name  $12.00</div>
@@ -50,7 +60,7 @@
             <h2>Milk fruit fresh with vegetables</h2>
             <p></p>
             <div class="tag">
-            <a href=""><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+            <a href="" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
             </div>
             </div>
             </div>
