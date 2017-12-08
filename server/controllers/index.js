@@ -8,6 +8,14 @@ let app = express.Router();
 let UserModel = require('../models/users')
 let User = UserModel.User;
 
+function requireAuth(req,res,next) {
+  //check if the user is logged in, else prompt to log in
+  if(!req.isAuthenticated()) {
+    return res.redirect('/');
+  }
+    next();
+}
+
 // Just use app.get to attach view files to a route
 //--------------------------------- ROUTERS---------------------------------
 app.get('/',(req,res,next) => {
@@ -97,7 +105,12 @@ return res.render('index/login', {
 }
 });
 
-app.get('/home',(req,res,next) => {
+app.get('/logout',(req,res,next)=> {
+    req.logout();
+    res.redirect('/'); //redirect to home page
+})
+
+app.get('/home',requireAuth,(req,res,next) => {
 return res.render('index/home',{
 title:'Welcome To CafeCentennial',
   }); 
