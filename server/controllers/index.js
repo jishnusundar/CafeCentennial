@@ -25,7 +25,9 @@ function requireAuth(req,res,next) {
 app.get('/',(req,res,next) => {
   return res.render('index/login',{
 title:'Login',
-messages:''
+messages:'',
+        user:req.user?req.user.username:'',
+
   });
 });
 
@@ -46,6 +48,7 @@ if(req.body.emailId=='')
          console.log("User Not found")
          return res.render('index/login', {
             title: 'Try Again',
+                    user:req.user?req.user.username:'',
               messages: 'Username incorrect or account not registered',
             
           });
@@ -72,6 +75,8 @@ else //if email id provided, check email valid, register the user and authentica
 return res.render('index/login', {
             title: 'Try Again',
               messages: 'Enter a Centennial email ID',
+                      user:req.user?req.user.username:''
+
              
             
           });
@@ -155,12 +160,16 @@ menuItem.find({"restaurant":req.params.restaurantName},(err, items) => {
 app.get('/checkout',(req,res,next) => {
   return res.render('index/checkout',{
    title:'Checkout',
+   user:req.user?req.user.username:''
+
   });
 });
 
 app.get('/addToCart',(req,res,next) => {
   return res.render('index/addToCart',{
    title:'Add to Cart',
+   user:req.user?req.user.username:''
+
   });
 });
 
