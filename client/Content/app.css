@@ -165,3 +165,8 @@ label{
     margin-left:44%;
 }
 
+.display-buttons-block a{
+    margin-bottom: 10%;
+    display: block;
+}
+
