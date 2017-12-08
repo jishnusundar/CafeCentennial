@@ -26,6 +26,22 @@ body{
    
 }
 
+.black-background{
+    background-color: black;
+}
+
+.navbar-inverse .navbar-brand {
+    color: white;
+}
+
+.blue-background{
+    background-color: #115f9a;
+}
+
+.white-color{
+    color: white;
+}
+
 .dark-container{
     background-color: #1c1c1c;
     width: 100%;
@@ -44,12 +60,16 @@ body{
     opacity: 1;
     color: white;
     background: #115f9a;
-    
+    position: relative
     
 }
-
+.inner-login-box{
+    margin-left: 15%;
+    margin-right: 15%;
+    background: #115f9a;
+}
 .login-box h5 {
-    font-size: 1.4em;
+    font-size: 1.2em;
     text-transform: uppercase;
     letter-spacing: 0.1em;
 }
@@ -118,4 +138,11 @@ img {
 .box.grid.recipes .tag, .box.grid.recipes h2, .box.grid.recipes p {
     padding-right: 15px;
     padding-left: 15px;
+}
+
+label{
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 10;
 }

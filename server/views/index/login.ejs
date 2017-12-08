@@ -10,7 +10,7 @@
 
     <title><%= title %></title>
 
- <!-- Custom StyleSheet -->
+    <!-- Custom StyleSheet -->
      <link href="/Content/reset.css" rel="stylesheet">
     <!-- Bootstrap core CSS -->
     <link href="/Scripts/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -18,24 +18,72 @@
     <!-- Custom fonts for this template -->
     <link href="/Scripts/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="/Content/app.css" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    
   </head>
 
   <body class="body-design">
    <script src ="/Scripts/lib/jquery/dist/jquery.min.js"></script>
    <script src="/Scripts/lib/bootstrap/dist/js/bootstrap.js"></script>
-  <div class="dark-container">
 
+  
+  <div class="dark-container">
+    <nav class="navbar navbar-inverse black-background">
+   <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand white-color" href="#">CafeCentennial</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+  <div class="large-12 columns text-center white-color">
+          <p>
+          <h6>Pre | Order</h6>  <span class="glyphicon glyphicon-cutlery"></span>
+          </p>
+          <h2 class="demo" data-in-effect="fadeInLeft">
+          <span aria-label="Fogafín" style="visibility: hidden;">
+          <span class="word1" aria-hidden="true" aria-label="Fogafín" style="display: inline-block; transform: translate3d(0px, 0px, 0px);">
+          <span class="char1" aria-hidden="true" style="display: inline-block; visibility: visible;">C</span>
+          <span class="char2" aria-hidden="true" style="display: inline-block; visibility: visible;">a</span>
+          <span class="char3" aria-hidden="true" style="display: inline-block; visibility: visible;">f</span>
+          <span class="char4" aria-hidden="true" style="display: inline-block; visibility: visible;">e</span>
+          <span class="char5" aria-hidden="true" style="display: inline-block; visibility: visible;">C</span>
+          <span class="char6" aria-hidden="true" style="display: inline-block; visibility: visible;">e</span>
+          <span class="char7" aria-hidden="true" style="display: inline-block; visibility: visible;">n</span>
+          <span class="char7" aria-hidden="true" style="display: inline-block; visibility: visible;">t</span>
+          <span class="char7" aria-hidden="true" style="display: inline-block; visibility: visible;">e</span>
+          <span class="char7" aria-hidden="true" style="display: inline-block; visibility: visible;">n</span>
+          <span class="char7" aria-hidden="true" style="display: inline-block; visibility: visible;">n</span>
+          <span class="char7" aria-hidden="true" style="display: inline-block; visibility: visible;">i</span>
+          <span class="char7" aria-hidden="true" style="display: inline-block; visibility: visible;">a</span>
+          <span class="char7" aria-hidden="true" style="display: inline-block; visibility: visible;">l</span>
+          </span></h2>
+        </div>
 
     <div class="row">
         <div class="large-8 columns large-centered text-center">
         <div class="login-box">
+         <div class="inner-login-box">
         <h5>Login<h5>
         
         <!--========================Login Form=============================-->
        <% if (messages.length > 0) { %>
         <div class="alert alert-danger"><%= messages %></div>
       <% } %>
-      
+       
            <form method="post">
               <div class="form-group">
                 <label for="exampleInputEmail1">Email address (for activation only)</label>
@@ -44,7 +92,7 @@
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Username</label>
-                <input type="text" name="username" class="form-control" id="exampleInputPassword1"  required>
+                <input type="text" name="username" class="form-control" id="exampleInputPassword1"  placeholder="Username" required>
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
@@ -53,6 +101,8 @@
               
               <button type="submit" class="btn green-color">Login</button>
             </form>
+
+            </div>
         </div>
         <div>
     <div>
