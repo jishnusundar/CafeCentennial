@@ -10,6 +10,7 @@ let User = UserModel.User;
 
 let restaurant = require('../models/restaurants');
 let menuItem = require('../models/menuItems');
+let shoppingCart = require('../models/shoppingCart')
 
 
 function requireAuth(req,res,next) {
@@ -104,10 +105,27 @@ return res.render('index/login', {
             
           });
         }
-        // if registration is successful,authenticate user
+        // if registration is successful, authenticate user and create a shopping cart for the user
         return passport.authenticate('local')(req, res, ()=>{
             console.log("Registration Successful");
-           res.redirect('/home');
+            //create shopping cart
+            console.log("Creating shopping cart");
+            let newCart = {
+              userId: req.user._id,
+              items: []
+            }
+
+            shoppingCart.create(newCart, (err, resp) => {
+
+     if(err) {
+        console.log("ERROR creating shopping Cart!!!: "+err);
+       res.end(err);
+      } else {
+          res.redirect('/home');
+      }
+    });
+
+           
         });
       });
   }

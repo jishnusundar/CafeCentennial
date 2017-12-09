@@ -1,5 +1,17 @@
 <% include ../partials/header.ejs %>
+<script>
+
+
+$.ajax({
+    url: '/addToCart', 
+    type: 'POST', 
+    contentType: 'application/json', 
+    data: JSON.stringify({number:1})}
+)
+
+</script>
     <div class="main-layout-box">
+
 
     <div class="inner-layout-box">
 
@@ -22,28 +34,34 @@
             <!--===========================Only this item is implemented to show on a message on click of button=================================================================================================-->
             
             <% for(let count=0;count<items.length;count++) { %>
+            <% var postFunctionName="send"+ items[count]._id + "()" %>
+            <from id="<%= items[count]._id %>>">
             <div class="col-lg-4 col-sm-6">
             <div class="box grid recipes">
             <!--TO DO: Have to seprate name and cost for easy functionality-->
+            <input type="hidden" name="price" value="<%= items[count].price %>">
             <div class="by">Price: <%= items[count].price %><a><span class="glyphicon glyphicon-thumbs-up my-icon-theme" aria-hidden="true" title="Add to favourites"></span></a></div>
             <a href="">
             <img src="/Assets/recipe1.jpg" alt="">
             </a>
+            <input type="hidden" name="itemName" value="<%= items[count].itemName %>">
             <h2><%= items[count].itemName %></h2>
             <p></p>
             <div class="tag">
            <!--TO DO: I can change this to like icon, not sure why it is for-->
-            <a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+            <a onclick="<%= postFunctionName %>" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
             </div>
             </div>
             </div>
+            </from>
+
+            <script>
+            
+            </script>
             <% } %>
 
 
               <!--====================================================================================================================================================================================================================-->
-
-
-
              
 
       </div><!-- /row -->
