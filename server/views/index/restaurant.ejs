@@ -2,12 +2,6 @@
 <script>
 
 
-$.ajax({
-    url: '/addToCart', 
-    type: 'POST', 
-    contentType: 'application/json', 
-    data: JSON.stringify({number:1})}
-)
 
 </script>
     <div class="main-layout-box">
@@ -34,8 +28,8 @@ $.ajax({
             <!--===========================Only this item is implemented to show on a message on click of button=================================================================================================-->
             
             <% for(let count=0;count<items.length;count++) { %>
-            <% var postFunctionName="send"+ items[count]._id + "()" %>
-            <from id="<%= items[count]._id %>>">
+            
+            <form id="<%= items[count]._id %>">
             <div class="col-lg-4 col-sm-6">
             <div class="box grid recipes">
             <!--TO DO: Have to seprate name and cost for easy functionality-->
@@ -49,14 +43,26 @@ $.ajax({
             <p></p>
             <div class="tag">
            <!--TO DO: I can change this to like icon, not sure why it is for-->
-            <a onclick="<%= postFunctionName %>" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+            <a onclick="<%= "send"+ items[count]._id + "()" %>" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
             </div>
             </div>
             </div>
-            </from>
+            </form>
 
             <script>
             
+            function <%= "send"+ items[count]._id + "()" %> {
+                $.ajax({
+     type: 'post',
+     datatype: 'json',
+     data: $("<%= "#" + items[count]._id %>").serialize(),
+     url: '/addToCart', //node.js server is running
+     success: function(data) {
+      // alert("success");
+
+     }
+   });
+            }
             </script>
             <% } %>
 

@@ -191,4 +191,72 @@ app.get('/addToCart',(req,res,next) => {
   });
 });
 
+app.post('/addToCart',(req,res,next)=> {
+  console.log(req.body);
+  //Find and update the cart
+
+//shoppingCart.find({"userId":req.user._id,"items":{$elemMatch:req.body}},(err,result)=>{
+  shoppingCart.find({"userId":req.user._id},(err,result)=>{ //get this iser's shopping cart
+  if(err)
+  {
+    console.log("Error finding the element")
+  }
+  else
+  { //successfully retreived shopping cart
+    var items = result[0].items;
+    console.log("Cart found")
+    var nodeFound="False";
+    var itemToUpdate;
+    for(var i=0; i<items.length; i++)
+    {
+      if(items[i].itemName==req.body.itemName && items[i].price == req.body.price) //if cart already has this item, increment count
+      {
+        nodeFound="True";
+        console.log("Match found")
+        console.log(items[i])
+        itemToUpdate = items[i];  // now Update cart - Increment Count of this item
+      }
+    }
+    if(nodeFound=="True") //This item already exist in cart, increment the count only
+    {
+      console.log("Node found = true")
+      shoppingCart.update({"userId":req.user._id,"items":itemToUpdate},{ $set: { "items.$" : {"itemName":itemToUpdate.itemName,"price":itemToUpdate.price,"count":itemToUpdate.count+1} } },(error2,feedBack)=>{
+        if(error2)
+        {
+          console.log("Error inserting item for first time");
+        }
+        else
+        {
+        console.log(feedBack);
+        console.log("Count incremented");
+        res.end();
+        }
+      })
+    }
+    else // This item does not exist. add this item to cart with count as 1
+    {
+      console.log("Node found = false")
+       shoppingCart.update({"userId":req.user._id},{$push: {items:{"itemName":req.body.itemName,"price":req.body.price,"count":1}}},(err,result)=>{
+          if(err)
+           {
+               console.log("EROR UPDATING SHOPPING CART " + err)
+           }
+           else
+          {
+             console.log(result);
+             console.log("Added for first time");
+             res.end();
+             }
+          });
+    }
+    res.end();
+}
+});
+
+
+  //console.log("posted from jquery")
+  
+});
+
 module.exports = app;
+
