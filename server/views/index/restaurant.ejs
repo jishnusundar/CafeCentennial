@@ -43,8 +43,8 @@
             <p></p>
             <div class="tag">
            <!--TO DO: I can change this to like icon, not sure why it is for-->
-            <a onclick="<%= "send"+ items[count]._id + "()" %>" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-            <a aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+            <a onclick="<%= "add"+ items[count]._id + "()" %>" data-toggle="collapse" href="#" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+            <a onclick="<%= "remove"+ items[count]._id + "()" %>" href="#" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
             </div>
             </div>
             </div>
@@ -52,12 +52,25 @@
 
             <script>
             
-            function <%= "send"+ items[count]._id + "()" %> {
+            function <%= "add"+ items[count]._id + "()" %> {
                 $.ajax({
      type: 'post',
      datatype: 'json',
      data: $("<%= "#" + items[count]._id %>").serialize(),
      url: '/addToCart', //node.js server is running
+     success: function(data) {
+      // alert("success");
+
+     }
+   });
+            }
+
+            function <%= "remove"+ items[count]._id + "()" %> {
+                $.ajax({
+     type: 'post',
+     datatype: 'json',
+     data: $("<%= "#" + items[count]._id %>").serialize(),
+     url: '/removeFromCart', //node.js server is running
      success: function(data) {
       // alert("success");
 
