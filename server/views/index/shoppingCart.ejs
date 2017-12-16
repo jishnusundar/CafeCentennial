@@ -1,119 +1,178 @@
 <% include ../partials/header.ejs %>
     <div class="main-layout-box">
 
-    <div class="inner-layout-box">
+        <div class="inner-layout-box">
 
-<!-- Page Content -->
-    
-     <div class="row">
-     <div class="my-heading">Shopping Cart</div>
-     <hr class="style-one">
-     </div>
+            <script type="text/javascript">
+                function show(it, box) {
+                    var vis = (box.checked) ? "block" : "none";
+                    document.getElementById(it).style.display = vis;
+                }
+            </script>
+            <!-- 
+            <script type="text/javascript">
+                $.validator.addMethod("time24", function (value, element) {
+                    if (!/^\d{2}:\d{2}:\d{2}$/.test(value)) return false;
+                    var parts = value.split(':');
+                    if (parts[0] > 23 || parts[1] > 59 || parts[2] > 59) return false;
+                    return true;
+                }, "Invalid time format.");
+            </script>
+        -->
+            <!-- Page Content -->
 
-        
-    <div class="row">
-    <form class="form-inline">
-
-    <div class="col-md-8">
-             <div class="form-group">
-                 <label>Item 1</label>
-                 <input type="number" class="form-control" id="" placeholder="Quantity">
-                 <div class="input-group">
-                 <div class="input-group-addon">Notes</div>
-                 <input type="text" class="form-control" id="" placeholder="Customize Order"/>
-                 <div class="input-group-addon"></div>
-                 </div>
-            </div>
-            
-             <div class="form-group">
-                 <label>Item 2</label>
-                 <input type="number" class="form-control" id="" placeholder="Quantity">
-                 <div class="input-group">
-                 <div class="input-group-addon">Notes</div>
-                 <input type="text" class="form-control" id="" placeholder="Customize Order">
-                 <div class="input-group-addon"></div>
-                 </div>
+            <div class="row">
+                <div class="my-heading">Shopping Cart</div>
+                <hr class="style-one">
             </div>
 
-             <div class="form-group">
-                 <label>Item 3</label>
-                 <input type="number" class="form-control" id="" placeholder="Quantity">
-                 <div class="input-group">
-                 <div class="input-group-addon">Notes</div>
-                 <input type="text" class="form-control" id="" placeholder="Customize Order">
-                 <div class="input-group-addon"></div>
-                 </div>
+
+            <div class="row">
+                <form class="form-inline">
+
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label>Item 1</label>
+                            <input type="number" class="form-control" id="" placeholder="Quantity">
+                            <div class="input-group">
+                                <div class="input-group-addon">Notes</div>
+                                <input type="text" class="form-control" id="" placeholder="Customize Order" />
+                                <div class="input-group-addon"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Item 2</label>
+                            <input type="number" class="form-control" id="" placeholder="Quantity">
+                            <div class="input-group">
+                                <div class="input-group-addon">Notes</div>
+                                <input type="text" class="form-control" id="" placeholder="Customize Order">
+                                <div class="input-group-addon"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Item 3</label>
+                            <input type="number" class="form-control" id="" placeholder="Quantity">
+                            <div class="input-group">
+                                <div class="input-group-addon">Notes</div>
+                                <input type="text" class="form-control" id="" placeholder="Customize Order">
+                                <div class="input-group-addon"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>Single Order
+                                    <input type="checkbox" id="blankCheckbox" value="option1" aria-label="..." onclick="show('date', this)">
+                                </label>
+                                <label>Recurring Order
+                                    <input type="checkbox" id="blankCheckbox2" value="option1" aria-label="...">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="date" style="display:none">
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>
+                                        <input type="text" class="form-control" id="" placeholder="Date">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" id="" placeholder="@Monday">
+                                    </td>
+                                    <td>
+                                        <input type="time" class="form-control" id="">
+                                    </td>
+                                    <!-- just in case
+                                    <td>
+                                        <select name="ampm" class="form-control">
+                                            <option value="am">am</option>
+                                            <option value="pm">pm</option>
+                                        </select>
+                                    </td>
+                                -->
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <input type="text" class="form-control" id="" placeholder="Time">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" id="" placeholder="@Tuesday">
+                                    </td>
+                                    <td>
+                                        <input type="time" class="form-control" id="">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <input type="text" class="form-control" id="" placeholder="@Wednesday">
+                                    </td>
+                                    <td>
+                                        <input type="time" class="form-control" id="">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <input type="text" class="form-control" id="" placeholder="@Thursday">
+                                    </td>
+                                    <td>
+                                        <input type="time" class="form-control" id="">
+                                    </td>
+                                    <td>
+                                </tr>
+
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <input type="text" class="form-control" id="" placeholder="@Friday">
+                                    </td>
+                                    <td>
+                                        <input type="time" class="form-control" id="">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+
+                        </div>
+                    </div>
+                    <!--left div-->
+                    <div class="col-md-4">
+                        <div class="display-buttons-block">
+                            <a class="btn btn-primary btn-lg" href="#">Proceed</a>
+                            <a class="btn btn-primary btn-lg" href="#">Change Order</a>
+                            <a class="btn btn-primary btn-lg" href="#">Cancel Order</a>
+                        </div>
+
+                    </div>
+                    <!--right div-->
+                </form>
             </div>
-        
-        
-            <div class="form-group">
-                <div class="checkbox">
-                <label>Single Order
-                    <input type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
-                </label>
-                <label>Recurring Order
-                    <input type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
-                </label>
-                </div>
-            </div>
-            
-             <div class="form-group">
-             <table class="table table-condensed">
-                <tr>
-                <td> <input type="text" class="form-control" id="" placeholder="Date"></td>
-                <td> <input type="text" class="form-control" id="" placeholder="@Monday"></td>
-                </tr>
+            <!--row-->
 
-                <tr>
-                 <td><input type="text" class="form-control" id="" placeholder="Time"></td>
-                <td> <input type="text" class="form-control" id="" placeholder="@Tuesday"></td>
-                </tr>
 
-                <tr>
-                <td></td>
-                <td> <input type="text" class="form-control" id="" placeholder="@Wednesday"></td>
-                </tr>
 
-                <tr>
-                <td></td>
-                <td> <input type="text" class="form-control" id="" placeholder="@Thursday"></td>
-                </tr>
 
-                <tr>
-                <td></td>
-                <td> <input type="text" class="form-control" id="" placeholder="@Friday"></td>
-                </tr>
 
-                <tr>
-                <td></td>
-                <td></td>
-                </tr>
-             </table>
-    
-    
-    
+
+
+
+
+        </div>
     </div>
-    </div>
-    <!--left div-->
-    <div class="col-md-4">
-    <div class="display-buttons-block">
-          <a class="btn btn-primary btn-lg" href="#">Proceed</a>
-          <a class="btn btn-primary btn-lg" href="#">Change Order</a>
-          <a class="btn btn-primary btn-lg" href="#">Cancel Order</a></div>
-    
-    </div><!--right div-->
-     </form>
-    </div><!--row-->
-       
-      
-         
 
-           
-          
-         
-       
-
-       </div>
-      </div>
-   
-   <% include ../partials/footer.ejs %>
+    <% include ../partials/footer.ejs %>
