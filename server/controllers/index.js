@@ -183,8 +183,8 @@ app.get('/checkout',(req,res,next) => {
   });
 });
 
-app.get('/addToCart',(req,res,next) => {
-  return res.render('index/addToCart',{
+app.get('/shoppingCart',(req,res,next) => {
+  return res.render('index/shoppingCart',{
    title:'Add to Cart',
    user:req.user?req.user.username:''
 
