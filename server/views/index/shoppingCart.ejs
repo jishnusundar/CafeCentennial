@@ -31,35 +31,18 @@
                 <form class="form-inline">
 
                     <div class="col-md-8">
+                    <% for(var i=0; i<items.length; i++) { %>
                         <div class="form-group">
-                            <label>Item 1</label>
-                            <input type="number" class="form-control" id="" placeholder="Quantity">
+                            <label><%= items[i].itemName %></label>
+                            <input type="number" value="<%= items[i].count %>" class="form-control" id="" placeholder="Quantity">
                             <div class="input-group">
                                 <div class="input-group-addon">Notes</div>
                                 <input type="text" class="form-control" id="" placeholder="Customize Order" />
                                 <div class="input-group-addon"></div>
                             </div>
                         </div>
+                        <% } %>
 
-                        <div class="form-group">
-                            <label>Item 2</label>
-                            <input type="number" class="form-control" id="" placeholder="Quantity">
-                            <div class="input-group">
-                                <div class="input-group-addon">Notes</div>
-                                <input type="text" class="form-control" id="" placeholder="Customize Order">
-                                <div class="input-group-addon"></div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Item 3</label>
-                            <input type="number" class="form-control" id="" placeholder="Quantity">
-                            <div class="input-group">
-                                <div class="input-group-addon">Notes</div>
-                                <input type="text" class="form-control" id="" placeholder="Customize Order">
-                                <div class="input-group-addon"></div>
-                            </div>
-                        </div>
 
 
                         <div class="form-group">
@@ -154,8 +137,8 @@
                     <div class="col-md-4">
                         <div class="display-buttons-block">
                             <a class="btn btn-primary btn-lg" href="#">Proceed</a>
-                            <a class="btn btn-primary btn-lg" href="#">Change Order</a>
-                            <a class="btn btn-primary btn-lg" href="#">Cancel Order</a>
+                            <a class="btn btn-primary btn-lg" href="#">Add More Items</a>
+                            <a class="btn btn-primary btn-lg" href="#">Clear Cart and Cancel Order</a>
                         </div>
 
                     </div>

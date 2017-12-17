@@ -184,11 +184,27 @@ app.get('/checkout',(req,res,next) => {
 });
 
 app.get('/shoppingCart',(req,res,next) => {
-  return res.render('index/shoppingCart',{
-   title:'Add to Cart',
-   user:req.user?req.user.username:''
 
-  });
+  shoppingCart.find({"userId":req.user._id},(err,result)=>{ //get this iser's shopping cart
+  if(err)
+  {
+    console.log("Error finding the shopping cart")
+  }
+  else
+  { //successfully retreived shopping cart
+    var items = result[0].items;
+    console.log("Cart found")
+    return res.render('index/shoppingCart',{
+      items:items,
+      title:'Add to Cart',
+      user:req.user?req.user.username:''
+   
+     });
+    
+}
+});
+
+  
 });
 
 app.post('/addToCart',(req,res,next)=> {
