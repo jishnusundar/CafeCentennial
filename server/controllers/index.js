@@ -183,12 +183,143 @@ app.get('/checkout',(req,res,next) => {
   });
 });
 
-app.get('/addToCart',(req,res,next) => {
-  return res.render('index/addToCart',{
+app.get('/shoppingCart',(req,res,next) => {
+  return res.render('index/shoppingCart',{
    title:'Add to Cart',
    user:req.user?req.user.username:''
 
   });
 });
 
+app.post('/addToCart',(req,res,next)=> {
+  console.log(req.body);
+  //Find and update the cart
+
+//shoppingCart.find({"userId":req.user._id,"items":{$elemMatch:req.body}},(err,result)=>{
+  shoppingCart.find({"userId":req.user._id},(err,result)=>{ //get this iser's shopping cart
+  if(err)
+  {
+    console.log("Error finding the shopping cart")
+  }
+  else
+  { //successfully retreived shopping cart
+    var items = result[0].items;
+    console.log("Cart found")
+    var nodeFound="False";
+    var itemToUpdate;
+    for(var i=0; i<items.length; i++)
+    {
+      if(items[i].itemName==req.body.itemName && items[i].price == req.body.price) //if cart already has this item, increment count
+      {
+        nodeFound="True";
+        console.log("Match found")
+        console.log(items[i])
+        itemToUpdate = items[i];  // now Update cart - Increment Count of this item
+      }
+    }
+    if(nodeFound=="True") //This item already exist in cart, increment the count only
+    {
+      console.log("Node found = true")
+      shoppingCart.update({"userId":req.user._id,"items":itemToUpdate},{ $set: { "items.$" : {"itemName":itemToUpdate.itemName,"price":itemToUpdate.price,"count":itemToUpdate.count+1} } },(error2,feedBack)=>{
+        if(error2)
+        {
+          console.log("Error Incrementing items count");
+        }
+        else
+        {
+        console.log(feedBack);
+        console.log("Count incremented");
+        res.end();
+        }
+      })
+    }
+    else // This item does not exist. add this item to cart with count as 1
+    {
+      console.log("Node found = false")
+       shoppingCart.update({"userId":req.user._id},{$push: {items:{"itemName":req.body.itemName,"price":req.body.price,"count":1}}},(err,result)=>{
+          if(err)
+           {
+               console.log("Error adding item for the first time " + err)
+           }
+           else
+          {
+             console.log(result);
+             console.log("Added for first time");
+             res.end();
+             }
+          });
+    }
+    res.end();
+}
+});
+
+
+  //console.log("posted from jquery")
+  
+});
+
+
+app.post('/removeFromCart',(req,res,next)=> {
+  console.log("removeFromCart clicked");
+console.log(req.body);
+
+shoppingCart.find({"userId":req.user._id},(err,result)=> { //find the user's shopping cart
+  if(err) //error finding shopping cart
+  {
+    console.log("Error finding the shopping cart")
+  }
+  else //shopping cart found
+  {
+    var items = result[0].items;
+    console.log("Cart found")
+    var nodeFound="False";
+    var itemToUpdate;
+    for(var i=0; i<items.length; i++)
+    {
+      if(items[i].itemName==req.body.itemName && items[i].price == req.body.price) //if cart already has this item, decrement count
+      {
+        nodeFound="True";
+        console.log("Match found")
+        console.log(items[i])
+        itemToUpdate = items[i];  // now Update cart - decrement Count of this item
+      }
+    }
+    if(nodeFound=="True") //This item already exist in cart, decrement the count only
+    {
+      console.log("Node found = true")
+      shoppingCart.update({"userId":req.user._id,"items":{$elemMatch:{"itemName":itemToUpdate.itemName,"price":itemToUpdate.price,"count":{$gt:1}}}},{ $set: {"items.$.count" : itemToUpdate.count-1} },(error2,feedBack)=>{
+        //decrement the count of items that has count > 1, by 1 Example: count 2 to count 1
+        if(error2)
+        {
+          console.log("Error decrementing items count");
+        }
+        else
+        {
+        console.log(feedBack);
+        console.log("Count was greater than 1: decremented");
+        res.end();
+        }
+      });
+
+      shoppingCart.update({"userId":req.user._id,"items":{$elemMatch:{"itemName":itemToUpdate.itemName,"price":itemToUpdate.price,"count":1}}},{ $pull: { items: { "itemName":itemToUpdate.itemName,"price":itemToUpdate.price,"count":1 } }  },(error3,feedBack2)=>{
+        //remove the item from count that has count 1
+        if(error3)
+        {
+          console.log("Error removing item from cart");
+        }
+        else
+        {
+        console.log(feedBack2);
+        console.log("item removed from cart");
+        res.end();
+        }
+      });
+    }
+
+  }
+});
+res.end();
+});
+
 module.exports = app;
+
