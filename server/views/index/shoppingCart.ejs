@@ -41,16 +41,18 @@
 
 
             <div class="row">
-                <form class="form-inline">
-
+                <form class="form-inline" method="post" action="/confirmCheckout">
+                <input type="hidden" name="numOfItems" value="<%= items.length %>">
                     <div class="col-md-8">
                     <% for(var i=0; i<items.length; i++) { %>
                         <div class="form-group">
+                        <input type="hidden" name="<%= "itemName" + (i+1) %>">
                             <label><%= items[i].itemName %></label>
-                            <input type="number" value="<%= items[i].count %>" class="form-control" id="" placeholder="Quantity">
+                            <input type="number" name=" <%= "itemCount" + (i+1) %> " value="<%= items[i].count %>" class="form-control" id="" placeholder="Quantity">
                             <div class="input-group">
                                 <div class="input-group-addon">Notes</div>
-                                <input type="text" class="form-control" id="" placeholder="Customize Order" />
+                                <input type="text" name="<%= "itemText" + (i+1) %>" class="form-control" id="" placeholder="Customize Order" />
+                                <input type="hidden" name="<%= "itemPrice" + (i+1) %>" value="<%= items[i].price %>">
                                 <div class="input-group-addon"></div>
                             </div>
                         </div>
@@ -61,19 +63,20 @@
                         <div class="form-group">
                             <div class="radio">
                                 <label>Single Order
-                                    <input type="radio" id="blankRadio" name="typeOrder" value="option1" aria-label="..." onclick="javascript:singleRecurCheck();">
+                                    <input type="radio" name="orderType" id="blankRadio" name="typeOrder" value="option1" aria-label="..." onclick="javascript:singleRecurCheck();">
                                 </label>
                                 <label>Recurring Order
-                                    <input type="radio" id="blankRadio2" name="typeOrder" value="option1" aria-label="..." onclick="javascript:singleRecurCheck();">
+                                    <input type="radio" name="orderType" id="blankRadio2" name="typeOrder" value="option1" aria-label="..." onclick="javascript:singleRecurCheck();">
                                 </label>
                             </div>
                         </div>
+                        <br>
 
                         <div class="form-group" id="date" >
                             <table class="table table-condensed" id="single" style="display:none">
                                 <tr>
                                     <td>
-                                        <input type="text" class="form-control" id="" placeholder="Date" >
+                                        <input type="text" name="singleOrderDate" class="form-control" id="" placeholder="Date" >
                                     </td>
                                     
                                     <!-- just in case
@@ -87,53 +90,57 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input type="text" class="form-control" id="" placeholder="Time">
+                                        <input type="text" name="singleOrderTime" class="form-control" id="" placeholder="Time">
                                     </td>
                                 </tr>
                             </table>
                             <table class="table table-condensed" id="recurring" style="display:none">
                             <tr>
+                            <td colspan="100%" style="padding-top:10px;"><label>Specify time only for the days you want</label></td>
+                            
+                            </tr>
+                            <tr>
                             <td>
-                                <input type="text" class="form-control" id="" placeholder="@Monday">
+                                <label>Mondays @</label>
                             </td>
                             <td>
-                                <input type="time" class="form-control" id="">
+                                <input type="time" name="mondayTime" class="form-control" id="">
                             </td>
                             </tr>
                                 <tr>
                                     <td>
-                                        <input type="text" class="form-control" id="" placeholder="@Tuesday">
+                                        <label>Tuesdays @</label>
                                     </td>
                                     <td>
-                                        <input type="time" class="form-control" id="">
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <input type="text" class="form-control" id="" placeholder="@Wednesday">
-                                    </td>
-                                    <td>
-                                        <input type="time" class="form-control" id="">
+                                        <input type="time" name="tuesdayAt" class="form-control" id="">
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td>
-                                        <input type="text" class="form-control" id="" placeholder="@Thursday">
+                                         <label>Wednesdays @</label>
                                     </td>
                                     <td>
-                                        <input type="time" class="form-control" id="">
+                                        <input type="time" name="wednesdayAt" class="form-control" id="">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                         <label>Thursdays @</label>
+                                    </td>
+                                    <td>
+                                        <input type="time" name="thursdayAt" class="form-control" id="">
                                     </td>
                                     <td>
                                 </tr>
 
                                 <tr>
                                     <td>
-                                        <input type="text" class="form-control" id="" placeholder="@Friday">
+                                         <label>Fridays @</label>
                                     </td>
                                     <td>
-                                        <input type="time" class="form-control" id="">
+                                        <input type="time" name="fridayAt" class="form-control" id="">
                                     </td>
                                 </tr>
 
@@ -152,9 +159,9 @@
                     <!--left div-->
                     <div class="col-md-4">
                         <div class="display-buttons-block">
-                            <a class="btn btn-primary btn-lg" href="#">Proceed</a>
-                            <a class="btn btn-primary btn-lg" href="#">Add More Items</a>
-                            <a class="btn btn-primary btn-lg" href="#">Clear Cart and Cancel Order</a>
+                            <input type="submit" value="Proceed" class="btn btn-primary btn-lg">
+                            <a class="btn btn-primary btn-lg" href="/home">Add More Items</a>
+                            <a class="btn btn-primary btn-lg" href="/clearCartAndCancel">Clear Cart and Cancel Order</a>
                         </div>
 
                     </div>

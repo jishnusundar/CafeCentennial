@@ -207,6 +207,33 @@ app.get('/shoppingCart',(req,res,next) => {
   
 });
 
+app.post('/confirmCheckout',(req,res,next)=>{
+  console.log(req.body);
+  console.log("using name"+req.body["itemPrice1"]);
+  return res.render('index/checkout',{
+    title:'Checkout',
+    messages:'',
+    user:req.user?req.user.username:'',
+    
+      });
+});
+
+app.get('/clearCartAndCancel',(req,res,next)=>{
+  shoppingCart.update({"userId":req.user._id},{ $pull: { items: {} }  },(error3,feedBack2)=>{
+    //remove the item from count that has count 1
+    if(error3)
+    {
+      console.log("Error clearing items from cart");
+    }
+    else
+    {
+    console.log(feedBack2);
+    console.log("all items cleared from cart");
+    res.redirect("/home");
+    }
+  });
+});
+
 app.post('/addToCart',(req,res,next)=> {
   console.log(req.body);
   //Find and update the cart
