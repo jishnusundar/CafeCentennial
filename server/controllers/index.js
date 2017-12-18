@@ -237,7 +237,7 @@ app.post('/confirmCheckout',(req,res,next)=>{
     itemsOrdered.push(item);
   }
   totalPrice = totalPrice.toFixed(2);
-
+  var daysToRepeat=0;
   var orderType = req.body.orderType;
   if(orderType=="single")
   {
@@ -247,11 +247,33 @@ app.post('/confirmCheckout',(req,res,next)=>{
   else if(orderType=="recurring")
   {
     mondayAt = req.body.mondayAt;
+    if(!mondayAt=="")
+    {
+      daysToRepeat+=1;
+    }
     tuesdayAt = req.body.tuesdayAt;
+    if(!tuesdayAt=="")
+    {
+      daysToRepeat+=1;
+    }
     wednesdayAt = req.body.wednesdayAt;
+    if(!wednesdayAt=="")
+    {
+      daysToRepeat+=1;
+    }
     thursdayAt = req.body.thursdayAt;
+    if(!thursdayAt=="")
+    {
+      daysToRepeat+=1;
+    }
     fridayAt = req.body.fridayAt;
-
+    if(!fridayAt=="")
+    {
+      daysToRepeat+=1;
+    }
+    console.log("Days to repeat: "+ daysToRepeat);
+    totalPrice = totalPrice * parseFloat(daysToRepeat);
+    console.log("total price after recurring calculations: "+ totalPrice);
   }
   var order = {
     userId:req.user._id,
