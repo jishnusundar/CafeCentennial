@@ -509,9 +509,13 @@ res.end();
 app.get('/credits',(req,res,next) => {
   return res.render('index/credits',{
   title:'Credits',
-  messages:''
+  messages:'',
+  user:req.user?req.user.username:'',
+  userCredit:req.user?req.user.creditBalance:'N/A'
   });
 });
+  
+ 
 module.exports = app;
 
 

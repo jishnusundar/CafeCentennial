@@ -42,6 +42,10 @@ body{
     color: white;
 }
 
+.white-color a:hover{
+    color:black;
+}
+
 .dark-container{
     background-color: #1c1c1c;
     width: 100%;
