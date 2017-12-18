@@ -505,5 +505,14 @@ shoppingCart.find({"userId":req.user._id},(err,result)=> { //find the user's sho
 res.end();
 });
 
+
+app.get('/credits',(req,res,next) => {
+  return res.render('index/credits',{
+  title:'Credits',
+  messages:''
+  });
+});
 module.exports = app;
+
+
 
