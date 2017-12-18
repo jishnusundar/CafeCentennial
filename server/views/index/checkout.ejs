@@ -16,33 +16,33 @@
     <div class="col-md-9">
              <div class="form-group">
              <table class="table table-condensed">
+             
                 <tr>
                 <td><label>Item</label></td>
                 <td><label>Price</label></td>
                 <td><label>Quantity</label></td>
+                <td><label>Customize</label></td>
                 </tr>
 
+               <% for(var i=0; i<order.items.length; i++) { %>
                 <tr>
-                <td><input type="text" class="form-control" id="" placeholder="Item 2" disabled></td>
-                <td> <input type="text" class="form-control" id="" placeholder="12" disabled></td>
-                <td><input type="text" class="form-control" id="" placeholder="1" disabled></td>
+                <td><input type="text" value="<%= order.items[i].itemName %>" class="form-control" id=""  disabled></td>
+                <td> <input type="text" value="<%= order.items[i].itemPrice %>" class="form-control" id=""  disabled></td>
+                <td><input type="text" value="<%= order.items[i].itemCount %>" class="form-control" id="" disabled></td>
+                <td><input type="text" value="<%= order.items[i].itemText %>" class="form-control" id="" disabled></td>
                 </tr>
+                 <% } %>
 
-                <tr>
-                <td><input type="text" class="form-control" id="" placeholder="Item 3" disabled></td>
-                <td> <input type="text" class="form-control" id="" placeholder="12" disabled></td>
-                <td><input type="text" class="form-control" id="" placeholder="1" disabled></td>
-                </tr>
             
                 <tr>
                 <td><label>Pick up</label></td>
-                <td> <input type="text" class="form-control" id="" placeholder="" disabled></td>
+                <td> <input type="text" value="<%= order.orderType=="single"?order.singleOrderDate:"N/A" %>" class="form-control" id=""  disabled></td>
                 <td></td>
                 </tr>
 
                 <tr>
                 <td><label>Time</label></td>
-                <td> <input type="text" class="form-control" id="" placeholder="@0:00 am/pm" disabled></td>
+                <td> <input type="text" value="<%= order.orderType=="single"?order.singleOrderTime:"N/A" %>" class="form-control" id="" disabled></td>
                 <td></td>
                 </tr>
         
@@ -58,32 +58,32 @@
 
                 <tr>
                 <td></td>
-                <td> <input type="text" class="form-control" id="" placeholder="@Monday" disabled></td>
-                <td><input type="text" class="form-control" id="" placeholder="Time" disabled></td>
+                <td> <input type="text" class="form-control" id="" value="Mondays@" disabled></td>
+                <td><input type="text" value="<%= order.mondayAt==""?"N/A":order.mondayAt %>" class="form-control" id=""  disabled></td>
                 </tr>
 
                 <tr>
                 <td></td>
-                <td> <input type="text" class="form-control" id="" placeholder="@Tuesday" disabled></td>
-                 <td><input type="text" class="form-control" id="" placeholder="Time" disabled></td>
+                <td> <input type="text" class="form-control" id="" value="Tuesdays@" disabled></td>
+                 <td><input type="text" value="<%= order.tuesdayAt==""?"N/A":order.tuesdayAt %>" class="form-control" id=""  disabled></td>
                 </tr>
 
                 <tr>
                 <td></td>
-                <td> <input type="text" class="form-control" id="" placeholder="@Wednesday" disabled></td>
-                 <td><input type="text" class="form-control" id="" placeholder="Time" disabled></td>
+                <td> <input type="text" class="form-control" id="" value="Wednesdays@" disabled></td>
+                 <td><input type="text" value="<%= order.wednesdayAt==""?"N/A":order.wednesdayAt %>" class="form-control" id=""  disabled></td>
                 </tr>
 
                 <tr>
                 <td></td>
-                <td> <input type="text" class="form-control" id="" placeholder="@Thursday" disabled></td>
-                 <td><input type="text" class="form-control" id="" placeholder="Time" disabled></td>
+                <td> <input type="text" class="form-control" id="" value="Thursdays@" disabled></td>
+                 <td><input type="text" value="<%= order.thursdayAt==""?"N/A":order.thursdayAt %>" class="form-control" id=""  disabled></td>
                 </tr>
 
                 <tr>
                 <td></td>
-                <td> <input type="text" class="form-control" id="" placeholder="@Friday" disabled></td>
-                 <td><input type="text" class="form-control" id="" placeholder="Time" disabled></td>
+                <td> <input type="text" class="form-control" id="" value="Fridays@" disabled></td>
+                 <td><input type="text" value="<%= order.fridayAt==""?"N/A":order.fridayAt %>" class="form-control" id=""  disabled></td>
                 </tr>
 
                 <tr>
@@ -103,17 +103,17 @@
       
       <div class="form-group">
           <label>Sub-Total</label>
-          <input type="text" class="form-control" id="" placeholder=""  disabled>
+          <input type="text" value="<%= order.subTotal %>" class="form-control"  disabled>
       </div>
 
       <div class="form-group">
          <label>GST</label>
-          <input type="text" class="form-control" id="" placeholder=""  disabled>
+          <input type="text" value="<%= order.taxes %>" class="form-control" disabled>
       </div>
 
       <div class="form-group">
         <label>Grand-Total</label>
-          <input type="text" class="form-control" id="" placeholder=""  disabled>
+          <input type="text" value="<%= order.grandTotal %>" class="form-control" disabled>
       </div>
 
        <div class="form-group">
@@ -121,7 +121,8 @@
       
       <div class="form-group">
       <br/>
-        <button type="button" class="btn btn-primary">Checkout</button>
+        
+        <a href="/processOrder" class="btn btn-primary" >Checkout</a>
       </div>
     </form>
 

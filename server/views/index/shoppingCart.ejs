@@ -46,9 +46,9 @@
                     <div class="col-md-8">
                     <% for(var i=0; i<items.length; i++) { %>
                         <div class="form-group">
-                        <input type="hidden" name="<%= "itemName" + (i+1) %>">
+                        <input type="hidden" name="<%= "itemName" + (i+1) %>" value="<%= items[i].itemName %>">
                             <label><%= items[i].itemName %></label>
-                            <input type="number" name=" <%= "itemCount" + (i+1) %> " value="<%= items[i].count %>" class="form-control" id="" placeholder="Quantity">
+                            <input type="number" name="<%= "itemCount" + (i+1) %>" value="<%= items[i].count %>" class="form-control" id="" placeholder="Quantity">
                             <div class="input-group">
                                 <div class="input-group-addon">Notes</div>
                                 <input type="text" name="<%= "itemText" + (i+1) %>" class="form-control" id="" placeholder="Customize Order" />
@@ -63,10 +63,10 @@
                         <div class="form-group">
                             <div class="radio">
                                 <label>Single Order
-                                    <input type="radio" name="orderType" id="blankRadio" name="typeOrder" value="option1" aria-label="..." onclick="javascript:singleRecurCheck();">
+                                    <input type="radio" name="orderType" id="blankRadio" value="single" aria-label="..." onclick="javascript:singleRecurCheck();">
                                 </label>
                                 <label>Recurring Order
-                                    <input type="radio" name="orderType" id="blankRadio2" name="typeOrder" value="option1" aria-label="..." onclick="javascript:singleRecurCheck();">
+                                    <input type="radio" name="orderType" id="blankRadio2" value="recurring" aria-label="..." onclick="javascript:singleRecurCheck();">
                                 </label>
                             </div>
                         </div>
@@ -104,7 +104,7 @@
                                 <label>Mondays @</label>
                             </td>
                             <td>
-                                <input type="time" name="mondayTime" class="form-control" id="">
+                                <input type="time" name="mondayAt" class="form-control" id="">
                             </td>
                             </tr>
                                 <tr>

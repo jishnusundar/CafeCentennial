@@ -10,8 +10,10 @@ let User = UserModel.User;
 
 let restaurant = require('../models/restaurants');
 let menuItem = require('../models/menuItems');
-let shoppingCart = require('../models/shoppingCart')
+let shoppingCart = require('../models/shoppingCart');
+let order = require('../models/orders');
 
+let moment = require('moment');
 
 function requireAuth(req,res,next) {
   //check if the user is logged in, else prompt to log in
@@ -208,19 +210,112 @@ app.get('/shoppingCart',(req,res,next) => {
 });
 
 app.post('/confirmCheckout',(req,res,next)=>{
-  console.log(req.body);
-  console.log("using name"+req.body["itemPrice1"]);
+  //console.log("using name"+req.body["itemPrice1"]);
+  var itemsOrdered =[];
+  var count= req.body.numOfItems;
+  var singleOrderDate;
+  var singleOrderTime;
+  var mondayAt;
+  var tuesdayAt;
+  var wednesdayAt;
+  var thursdayAt;
+  var fridayAt;
+
+  var totalPrice = 0;
+  for(var i=1; i<=count; i++) 
+  {
+    var thisPrice = req.body["itemPrice"+i];
+    var thisCount  =req.body["itemCount"+i];
+    var thisTotal = parseFloat(thisPrice) * parseInt(thisCount);
+    var item = {
+      itemName:req.body["itemName"+i],
+      itemCount:req.body["itemCount"+i],
+      itemText: req.body["itemText"+i],
+      itemPrice: req.body["itemPrice"+i]
+    }
+    totalPrice += thisTotal ;
+    itemsOrdered.push(item);
+  }
+  totalPrice = totalPrice.toFixed(2);
+
+  var orderType = req.body.orderType;
+  if(orderType=="single")
+  {
+    singleOrderDate=req.body.singleOrderDate;
+    singleOrderTime = req.body.singleOrderTime;
+  }
+  else if(orderType=="recurring")
+  {
+    mondayAt = req.body.mondayAt;
+    tuesdayAt = req.body.tuesdayAt;
+    wednesdayAt = req.body.wednesdayAt;
+    thursdayAt = req.body.thursdayAt;
+    fridayAt = req.body.fridayAt;
+
+  }
+  var order = {
+    userId:req.user._id,
+    items:itemsOrdered,
+    orderType:orderType,
+    singleOrderDate:singleOrderDate,
+    singleOrderTime:singleOrderTime,
+    mondayAt:mondayAt,
+    tuesdayAt:tuesdayAt,
+    wednesdayAt:wednesdayAt,
+    thursdayAt:thursdayAt,
+    fridayAt:fridayAt,
+    subTotal:totalPrice,
+    taxes: (0.13 * totalPrice).toFixed(2),
+    grandTotal:(totalPrice *1.13).toFixed(2),
+    creationDate:moment().format('MM/DD/YY, h:mm:ss a')
+  }
+  //console.log(order);
+  req.session.pendingOrder=order; //attach this object to session to save to DB after checkout
+  
   return res.render('index/checkout',{
     title:'Checkout',
     messages:'',
     user:req.user?req.user.username:'',
+    order:order
     
       });
 });
 
+app.get('/processOrder',(req,res,next)=> {
+  //CREATE ORDER IN DB
+var pendingOrder = req.session.pendingOrder;
+order.create(pendingOrder,(err,result)=>{
+  if(err)
+  {
+    console.log("Error creating order");
+  }
+  else
+  { //order created successfully
+    console.log("Order created")
+    console.log(result);
+    req.session.pendingOrder=null; //clear order from session memory
+    shoppingCart.update({"userId":req.user._id},{ $pull: { items: {} }  },(error3,feedBack2)=>{ //clear shopping cart and take user home
+
+      if(error3)
+      {
+        console.log("Error clearing items from cart");
+      }
+      else
+      {
+      console.log(feedBack2);
+      console.log("all items cleared from cart");
+      res.redirect("/home");
+      }
+    });
+    
+  }
+});
+
+});
+
 app.get('/clearCartAndCancel',(req,res,next)=>{
   shoppingCart.update({"userId":req.user._id},{ $pull: { items: {} }  },(error3,feedBack2)=>{
-    //remove the item from count that has count 1
+   
     if(error3)
     {
       console.log("Error clearing items from cart");
