@@ -22,6 +22,10 @@ let UserSchema = new Schema({
      default: '',
      trim: true, //string only,
      required: 'A valid Centennial domain e-mail is required' //message to flash box 
+ },
+ creditBalance: {
+     type:String,
+     default:'10'
  }
 },
 {

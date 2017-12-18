@@ -29,8 +29,8 @@ app.get('/',(req,res,next) => {
   return res.render('index/login',{
 title:'Login',
 messages:'',
-        user:req.user?req.user.username:'',
-
+user:req.user?req.user.username:'',
+userCredit:req.user?req.user.creditBalance:'N/A'
   });
 });
 
@@ -51,8 +51,9 @@ if(req.body.emailId=='')
          console.log("User Not found")
          return res.render('index/login', {
             title: 'Try Again',
-                    user:req.user?req.user.username:'',
-              messages: 'Username incorrect or account not registered',
+            user:req.user?req.user.username:'',
+            messages: 'Username incorrect or account not registered',
+            userCredit:req.user?req.user.creditBalance:'N/A'
             
           });
      }
@@ -77,11 +78,9 @@ else //if email id provided, check email valid, register the user and authentica
     console.log("Not a valid email");
 return res.render('index/login', {
             title: 'Try Again',
-              messages: 'Enter a Centennial email ID',
-                      user:req.user?req.user.username:''
-
-             
-            
+            messages: 'Enter a Centennial email ID',
+            user:req.user?req.user.username:'',
+            userCredit:req.user?req.user.creditBalance:'N/A'
           });
   }
   else{
@@ -91,7 +90,7 @@ return res.render('index/login', {
         username: req.body.username,
         password: req.body.password,
         email: req.body.emailId,
-        
+        creditBalance:'10'
       }),
       req.body.password,
       (err) => {
@@ -102,9 +101,9 @@ return res.render('index/login', {
           }
           return res.render('index/login', {
             title: 'Try Again',
-              messages: req.flash('registerMessage'),
-              user:req.user?req.user.username:''
-            
+            messages: req.flash('registerMessage'),
+            user:req.user?req.user.username:'',
+            userCredit:req.user?req.user.creditBalance:'N/A'
           });
         }
         // if registration is successful, authenticate user and create a shopping cart for the user
@@ -149,7 +148,8 @@ restaurant.find((err, restaurants) => {
      return res.render('index/home',{
         title:'Welcome Online',
         user:req.user?req.user.username:'',
-        restaurants: restaurants
+        restaurants: restaurants,
+        userCredit:req.user?req.user.creditBalance:'N/A'
     });
     }
   });
@@ -170,7 +170,8 @@ menuItem.find({"restaurant":req.params.restaurantName},(err, items) => {
         title:'Welcome Online',
         user:req.user?req.user.username:'',
         items: items,
-        restaurant:req.params.restaurantName
+        restaurant:req.params.restaurantName,
+        userCredit:req.user?req.user.creditBalance:'N/A'
     });
     }
   });
@@ -180,7 +181,8 @@ menuItem.find({"restaurant":req.params.restaurantName},(err, items) => {
 app.get('/checkout',(req,res,next) => {
   return res.render('index/checkout',{
    title:'Checkout',
-   user:req.user?req.user.username:''
+   user:req.user?req.user.username:'',
+   userCredit:req.user?req.user.creditBalance:'N/A'
 
   });
 });
@@ -199,7 +201,8 @@ app.get('/shoppingCart',(req,res,next) => {
     return res.render('index/shoppingCart',{
       items:items,
       title:'Add to Cart',
-      user:req.user?req.user.username:''
+      user:req.user?req.user.username:'',
+      userCredit:req.user?req.user.creditBalance:'N/A'
    
      });
     
@@ -298,7 +301,8 @@ app.post('/confirmCheckout',(req,res,next)=>{
     title:'Checkout',
     messages:'',
     user:req.user?req.user.username:'',
-    order:order
+    order:order,
+    userCredit:req.user?req.user.creditBalance:'N/A'
     
       });
 });
@@ -306,32 +310,52 @@ app.post('/confirmCheckout',(req,res,next)=>{
 app.get('/processOrder',(req,res,next)=> {
   //CREATE ORDER IN DB
 var pendingOrder = req.session.pendingOrder;
-order.create(pendingOrder,(err,result)=>{
-  if(err)
-  {
-    console.log("Error creating order");
-  }
-  else
-  { //order created successfully
-    console.log("Order created")
-    console.log(result);
-    req.session.pendingOrder=null; //clear order from session memory
-    shoppingCart.update({"userId":req.user._id},{ $pull: { items: {} }  },(error3,feedBack2)=>{ //clear shopping cart and take user home
+if(parseFloat(req.user.creditBalance) >= parseFloat(pendingOrder.grandTotal)) //user have balance to purchase this
+{
+  order.create(pendingOrder,(err,result)=>{
+    if(err)
+    {
+      console.log("Error creating order");
+    }
+    else
+    { //order created successfully
+      console.log("Order created")
+      console.log(result);
+      req.session.pendingOrder=null; //clear order from session memory
+      
+      User.update({"_id":req.user._id},{$set:{creditBalance:parseFloat(req.user.creditBalance) - parseFloat(pendingOrder.grandTotal)}},(err4,result4)=>{
+        //Depreciate user's balance
+        if (err4)
+        {
+          console.log("Error depreciated user's balance")
+        }
+        else
+        {
+          console.log("User balance depreciated");
+        }
+      })
+      shoppingCart.update({"userId":req.user._id},{ $pull: { items: {} }  },(error3,feedBack2)=>{ //clear shopping cart and take user home
+  
+        if(error3)
+        {
+          console.log("Error clearing items from cart");
+        }
+        else
+        {
+        console.log(feedBack2);
+        console.log("all items cleared from cart");
+        res.redirect("/home");
+        }
+      });
+      
+    }
+  });
+}
+else //ask user to add balance to credit
+{
+  res.redirect('/topUpCredit');
+}
 
-      if(error3)
-      {
-        console.log("Error clearing items from cart");
-      }
-      else
-      {
-      console.log(feedBack2);
-      console.log("all items cleared from cart");
-      res.redirect("/home");
-      }
-    });
-    
-  }
-});
 
 });
 
