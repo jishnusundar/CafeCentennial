@@ -24,23 +24,14 @@
             </tr>
             </thead>
             <tbody>
+            <% for(var i=0; i<orders.length; i++) { %>
             <tr>
-                <td>1174r7q36w4rq384i</td>
-                <td>$11.60</td>
-                <td>MM/DD/YY</td>
-                <td><a href="" title="View Order details"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></td>
+                <td><%= orders[i]._id %></td>
+                <td><%= orders[i].grandTotal %></td>
+                <td><%= orders[i].creationDate %></td>
+                <td><a href="<%= "/orderDetails/"+ orders[i]._id %>" title="View Order details"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></td>
             </tr>
-            <tr>
-                <td>Mary</td>
-                <td>Moe</td>
-                <td>mary@example.com</td>
-                <td><a href="" title="View Order details"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></td>
-            </tr>
-            <tr>
-                <td>July</td>
-                <td>Dooley</td>
-                <td>july@example.com</td>
-            </tr>
+            <% } %>
             </tbody>
         </table>
         </div><!--table responsive-->

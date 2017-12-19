@@ -584,13 +584,29 @@ app.get('/orderHistory',(req,res,next) => {
 });
 
 
-app.get('/orderDetails',(req,res,next) => {
-  return res.render('index/orderDetails',{
-  title:'Order Details',
-  messages:'',
-  user:req.user?req.user.username:'',
-  userCredit:req.user?req.user.creditBalance:'N/A'
+app.get('/orderDetails/:id',(req,res,next) => {
+
+  order.find({"_id":req.params.id},(err,ordersFound)=>{
+    if(err)
+    {
+      console.log("Error fetching orders for this user");
+    }
+    else
+    {
+      console.log(ordersFound);
+      var thisOrder = ordersFound[0]
+      console.log(thisOrder);
+      return res.render('index/orderDetails',{
+        title:'Order Details',
+        messages:'',
+        user:req.user?req.user.username:'',
+        userCredit:req.user?req.user.creditBalance:'N/A',
+        order:thisOrder
+        });
+    }
   });
+
+  
 });
 
 module.exports = app;
