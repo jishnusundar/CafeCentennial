@@ -149,7 +149,8 @@ restaurant.find((err, restaurants) => {
         title:'Welcome Online',
         user:req.user?req.user.username:'',
         restaurants: restaurants,
-        userCredit:req.user?req.user.creditBalance:'N/A'
+        userCredit:req.user?req.user.creditBalance:'N/A',
+        message:''
     });
     }
   });
@@ -323,7 +324,7 @@ if(parseFloat(req.user.creditBalance) >= parseFloat(pendingOrder.grandTotal)) //
       console.log(result);
       req.session.pendingOrder=null; //clear order from session memory
       
-      User.update({"_id":req.user._id},{$set:{creditBalance:parseFloat(req.user.creditBalance) - parseFloat(pendingOrder.grandTotal)}},(err4,result4)=>{
+      User.update({"_id":req.user._id},{$set:{creditBalance:(parseFloat(req.user.creditBalance) - parseFloat(pendingOrder.grandTotal)).toFixed(2)}},(err4,result4)=>{
         //Depreciate user's balance
         if (err4)
         {
@@ -344,7 +345,20 @@ if(parseFloat(req.user.creditBalance) >= parseFloat(pendingOrder.grandTotal)) //
         {
         console.log(feedBack2);
         console.log("all items cleared from cart");
-        res.redirect("/home");
+        restaurant.find((err, restaurants) => { //find all restaurants and render home page
+          if (err) {
+            return console.error(err);
+          }
+          else {
+           return res.render('index/home',{
+              title:'Welcome Online',
+              user:req.user?req.user.username:'',
+              restaurants: restaurants,
+              userCredit:req.user?req.user.creditBalance:'N/A',
+              message:'Order placed!'
+          });
+          }
+        });
         }
       });
       
@@ -353,7 +367,14 @@ if(parseFloat(req.user.creditBalance) >= parseFloat(pendingOrder.grandTotal)) //
 }
 else //ask user to add balance to credit
 {
-  res.redirect('/topUpCredit');
+  return res.render('index/credits',{
+    title:'Credits',
+    messages:'',
+    user:req.user?req.user.username:'',
+    userCredit:req.user?req.user.creditBalance:'N/A',
+    creditMessage:'Please reload your credits to place this order',
+    balRequired:pendingOrder.grandTotal
+    });
 }
 
 
@@ -511,11 +532,45 @@ app.get('/credits',(req,res,next) => {
   title:'Credits',
   messages:'',
   user:req.user?req.user.username:'',
-  userCredit:req.user?req.user.creditBalance:'N/A'
+  userCredit:req.user?req.user.creditBalance:'N/A',
+  creditMessage:'',
+  balRequired:''
   });
 });
   
- 
+app.post('/credits',(req,res,next)=>{
+  console.log(req.body);
+  User.update({"_id":req.user._id},{$set:{"creditBalance":(parseFloat(req.user.creditBalance)+parseFloat(req.body.amount)).toFixed(2)}},(err,result)=>{
+    if(err)
+    {
+      console.log("Error reloading user credit");
+    }
+    else
+    {
+      console.log("Credit reloaded successfully");
+      return res.render('index/credits',{
+        title:'Credits',
+        messages:'',
+        user:req.user?req.user.username:'',
+        userCredit:req.user?req.user.creditBalance:'N/A',
+        creditMessage:'Credit reloaded successfully!',
+        balRequired:''
+        });
+    }
+  });
+}); 
+
+app.get('/orderStatus',(req,res,next) => {
+  return res.render('index/orderStatus',{
+  title:'Order Status',
+  messages:'',
+  user:req.user?req.user.username:'',
+  userCredit:req.user?req.user.creditBalance:'N/A',
+  creditMessage:'',
+  balRequired:''
+  });
+});
+
 module.exports = app;
 
 
