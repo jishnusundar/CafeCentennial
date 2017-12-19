@@ -561,14 +561,26 @@ app.post('/credits',(req,res,next)=>{
 }); 
 
 app.get('/orderHistory',(req,res,next) => {
-  return res.render('index/orderHistory',{
-  title:'Order History',
-  messages:'',
-  user:req.user?req.user.username:'',
-  userCredit:req.user?req.user.creditBalance:'N/A',
-  creditMessage:'',
-  balRequired:''
-  });
+
+  order.find({"userId":req.user._id},(err,ordersFound)=>{
+    if(err)
+    {
+      console.log("Error fetching orders for this user");
+    }
+    else
+    {
+      console.log(ordersFound);
+      return res.render('index/orderHistory',{
+        title:'Order History',
+        messages:'',
+        user:req.user?req.user.username:'',
+        userCredit:req.user?req.user.creditBalance:'N/A',
+        orders:ordersFound
+        });
+    }
+  })
+
+  
 });
 
 module.exports = app;
