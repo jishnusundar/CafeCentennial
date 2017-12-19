@@ -560,9 +560,9 @@ app.post('/credits',(req,res,next)=>{
   });
 }); 
 
-app.get('/orderStatus',(req,res,next) => {
-  return res.render('index/orderStatus',{
-  title:'Order Status',
+app.get('/orderHistory',(req,res,next) => {
+  return res.render('index/orderHistory',{
+  title:'Order History',
   messages:'',
   user:req.user?req.user.username:'',
   userCredit:req.user?req.user.creditBalance:'N/A',
