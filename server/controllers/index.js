@@ -353,7 +353,14 @@ if(parseFloat(req.user.creditBalance) >= parseFloat(pendingOrder.grandTotal)) //
 }
 else //ask user to add balance to credit
 {
-  res.redirect('/topUpCredit');
+  return res.render('index/credits',{
+    title:'Credits',
+    messages:'',
+    user:req.user?req.user.username:'',
+    userCredit:req.user?req.user.creditBalance:'N/A',
+    creditMessage:'Please reload your credits to place this order',
+    balRequired:pendingOrder.grandTotal
+    });
 }
 
 
@@ -511,11 +518,34 @@ app.get('/credits',(req,res,next) => {
   title:'Credits',
   messages:'',
   user:req.user?req.user.username:'',
-  userCredit:req.user?req.user.creditBalance:'N/A'
+  userCredit:req.user?req.user.creditBalance:'N/A',
+  creditMessage:'',
+  balRequired:''
   });
 });
   
- 
+app.post('/credits',(req,res,next)=>{
+  console.log(req.body);
+  User.update({"_id":req.user._id},{$set:{"creditBalance":parseFloat(req.user.creditBalance)+parseFloat(req.body.amount)}},(err,result)=>{
+    if(err)
+    {
+      console.log("Error reloading user credit");
+    }
+    else
+    {
+      console.log("Credit reloaded successfully");
+      return res.render('index/credits',{
+        title:'Credits',
+        messages:'',
+        user:req.user?req.user.username:'',
+        userCredit:req.user?req.user.creditBalance:'N/A',
+        creditMessage:'Credit reloaded successfully!',
+        balRequired:''
+        });
+    }
+  });
+}); 
+
 module.exports = app;
 
 

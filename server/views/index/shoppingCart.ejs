@@ -38,7 +38,13 @@
                 <div class="my-heading">Shopping Cart</div>
                 <hr class="style-one">
             </div>
+            <% if(items.length==0) {%>
 
+             <div class="row">
+                <h3>Your cart is empty!</h3>
+            </div>
+
+            <% } else { %>
 
             <div class="row">
                 <form class="form-inline" method="post" action="/confirmCheckout">
@@ -168,6 +174,9 @@
                     <!--right div-->
                 </form>
             </div>
+
+            <% } %>
+            
             <!--row-->
 
 

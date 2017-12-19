@@ -8,16 +8,21 @@
         <div class="large-8 columns large-centered text-center">
         <div class="login-box">
          <div class="inner-login-box">
-         <h5>Welcome -Ammu-</h5>
+          <% if (creditMessage!='' && creditMessage.length > 0) { %>
+        <div class="alert alert-danger"><%= creditMessage %></div>
+      <% } %>
+         <h5>Welcome <%= user %></h5>
          <form class="form-horizontal" method="post">
               <div class="form-group">
-                <label>Available Balance: </label>
-                <label>$11.40</label>
+                <label>Available Balance </label>
+                <label>CAD:<%= userCredit %></label>
               </div>
+              <% if(balRequired!='') { %>
               <div class="form-group">
-                <label>Minimum Balance required: </label>
-                <label>$10.00</label>
+                <label>Minimum Balance required for this order </label>
+                <label>CAD:<%= balRequired %></label>
               </div>
+              <% } %>
               <div class="form-group">
                 <a class="white-color" href="#" data-toggle="collapse" data-target="#demo">Load Credit <span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
               </div>
@@ -25,17 +30,22 @@
               <div id="demo" class="collapse">
               <div class="form-group">
                 <label for="" class="col-sm-3 control-label">Name</label>
-                <div class="col-sm-9"> <input type="text" name="" class="form-control" id="" placeholder="Amandeep Aujla" required></div>
+                <div class="col-sm-9"> <input type="text" name="cardHolderName" class="form-control" id="" placeholder="Card Holder Name" required></div>
               </div>
 
               <div class="form-group">
                 <label for="" class="col-sm-3 control-label">Credit Card</label>
-                <div class="col-sm-9"><input type="text" name="" class="form-control" id="" placeholder="Enter 16 digits #" pattern ="[0-9]{16}" required></div>
+                <div class="col-sm-9"><input type="text" name="cardNumber" class="form-control" id="" placeholder="Enter 16 digits credit/debit card #" pattern ="[0-9]{16}" required></div>
               </div>
 
               <div class="form-group">
-                <label for="" class="col-sm-3 control-label">CVC</label>
-                 <div class="col-sm-9"><input type="password" name="" maxlength="3" class="form-control" id="" placeholder="xxx" required></div>
+                <label for="" class="col-sm-3 control-label">CVV</label>
+                 <div class="col-sm-9"><input type="password" name="cardCvv" maxlength="3" pattern ="[0-9]{3}" class="form-control" id="" placeholder="xxx" required></div>
+              </div>
+
+              <div class="form-group">
+                <label for="" class="col-sm-3 control-label">Amount</label>
+                 <div class="col-sm-9"><input type="text" name="amount" class="form-control" id=""  required></div>
               </div>
 
               <div class="form-group">
