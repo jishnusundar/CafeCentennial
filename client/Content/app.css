@@ -30,6 +30,9 @@ body{
     background-color: black;
 }
 
+.grey-background{
+    background-color:#585858;
+}
 .navbar-inverse .navbar-brand {
     color: white;
 }
@@ -40,10 +43,6 @@ body{
 
 .white-color{
     color: white;
-}
-
-.white-color a:hover{
-    color:black;
 }
 
 .dark-container{
@@ -135,6 +134,13 @@ img {
     color: #fff;
     background-color: #71b21d;
 }
+
+.box.grid.recipes .by2 {
+    padding: 10px 15px;
+    text-align: left;
+    color: #fff;
+    background-color: #115f9a;
+}
 .box.grid.recipes h2 a {
     color: #333;
 }
@@ -144,6 +150,10 @@ img {
     padding-left: 15px;
 }
 
+.box.grid.recipes .items-tag{
+    display: block;
+    padding: 15px 10px 0px 15px;
+}
 label{
     display: inline-block;
     max-width: 100%;
@@ -177,4 +187,11 @@ label{
 .cart{
     padding: 5px;
     margin-top: 5px;
+}
+
+.favourites{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20%;
+    margin-right: 20%;
 }
