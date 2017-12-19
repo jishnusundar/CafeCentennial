@@ -9,10 +9,10 @@
         <div class="login-box">
          <div class="inner-login-box">
           <% if (creditMessage!='' && creditMessage.length > 0) { %>
-        <div class="alert alert-danger"><%= creditMessage %></div>
+        <div class="alert alert-primary"><%= creditMessage %></div>
       <% } %>
          <h5>Welcome <%= user %></h5>
-         <form class="form-horizontal" method="post">
+         <form class="form-horizontal" method="post" action="/credits">
               <div class="form-group">
                 <label>Available Balance </label>
                 <label>CAD:<%= userCredit %></label>
