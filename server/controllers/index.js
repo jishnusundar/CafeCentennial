@@ -583,6 +583,16 @@ app.get('/orderHistory',(req,res,next) => {
   
 });
 
+
+app.get('/orderDetails',(req,res,next) => {
+  return res.render('index/orderDetails',{
+  title:'Order Details',
+  messages:'',
+  user:req.user?req.user.username:'',
+  userCredit:req.user?req.user.creditBalance:'N/A'
+  });
+});
+
 module.exports = app;
 
 
