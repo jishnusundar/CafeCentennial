@@ -30,7 +30,7 @@ db.once('open', () => {
 
 // define controllers
 let indexController = require('./controllers/index'); // top level routes
-
+let registerManagerController = require('./controllers/registerManager');
 
 
 let app = express();
@@ -61,6 +61,7 @@ app.use(passport.session());
 
 // redirect incoming requests routes to appropriate controllers
 app.use('/', indexController);
+app.use('/registerManager',registerManagerController);
 
 //Passport User Configuration
 let UserModel = require('./models/users')
