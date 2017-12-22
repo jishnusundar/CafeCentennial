@@ -90,7 +90,10 @@ return res.render('index/login', {
         username: req.body.username,
         password: req.body.password,
         email: req.body.emailId,
-        creditBalance:'10'
+        creditBalance:'10',
+        favourites:[],
+        notifications:[],
+        activeRecurringOrders:[]
       }),
       req.body.password,
       (err) => {

@@ -3,7 +3,7 @@ let mongoose = require("mongoose");
 let Schema = mongoose.Schema;
 let passportLocalMongoose = require("passport-local-mongoose");
 
-let UserSchema = new Schema({
+let RestManagerSchema = new Schema({
  username: {
      type: String,
      default: '',
@@ -23,21 +23,17 @@ let UserSchema = new Schema({
      trim: true, //string only,
      required: 'A valid Centennial domain e-mail is required' //message to flash box 
  },
- creditBalance: {
-     type:String,
-     default:'10'
- },
- favourites:[],
- notifications:[],
- activeRecurringOrders:[]
+ restaurantName: {
+     type:String
+ }
 },
 {
- collection: "users"
+ collection: "restManagers"
 });
 
 
 let options = ({missingPasswordError: "Wrong Password"}); 
 
-UserSchema.plugin(passportLocalMongoose, options); //attach passport local mongoose to schema with the option created above
+RestManagerSchema.plugin(passportLocalMongoose, options); //attach passport local mongoose to schema with the option created above
 
-exports.User = mongoose.model('User', UserSchema); //user imported from the actual model is exported outside
+exports.RestManager = mongoose.model('restManagers', RestManagerSchema); //user imported from the actual model is exported outside
