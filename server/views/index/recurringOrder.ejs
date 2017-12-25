@@ -5,9 +5,8 @@
     <div class="inner-layout-box">
 
 
-
-   <div class="row">
-      <div class="my-heading">Order History</div>
+         <div class="row">
+      <div class="my-heading">Active Orders</div>
       <hr class="style-one">
       </div>
 
@@ -18,18 +17,18 @@
             <thead>
             <tr>
                 <td><strong>Order No</strong></td>
-                <td><strong>Amount</strong></td>
+                <td><strong>xxxx</strong></td>
                 <td><strong>Date</strong></td>
-            <td><strong>Details</strong></td>
+            <td><strong>09/90/1923</strong></td>
             </tr>
             </thead>
             <tbody>
-            <% for(var i=0; i<orders.length; i++) { %>
+            <% for(var i=0; i<2; i++) { %>
             <tr>
-                <td><%= orders[i]._id %></td>
-                <td><%= orders[i].grandTotal %></td>
-                <td><%= orders[i].creationDate %></td>
-                <td>Single or Recurring&nbsp;<a href="<%= "/orderDetails/"+ orders[i]._id %>" title="View Order details"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></td>
+                <td>Coffee</td>
+                <td>$1.90</td>
+                <td>1</td>
+                <td>Single or Recurring&nbsp;<a href="" title="View Order details"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></td>
             </tr>
             <% } %>
             </tbody>
@@ -37,9 +36,7 @@
         </div><!--table responsive-->
         </div>
 
-
-
-    </div><!--inner layout box-->
+      </div><!--inner layout box-->
 
     </div><!--main layout box-->
 
