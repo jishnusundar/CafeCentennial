@@ -5,36 +5,63 @@
     <div class="inner-layout-box">
 
 
-         <div class="row">
+      <div class="row">
       <div class="my-heading">Active Orders</div>
       <hr class="style-one">
       </div>
 
 
-        <div class="row"> 
-        <div class="table-responsive">     
+        <div class="row">
+          <% for(var i=0; i<2; i++) { %>
+        <div class="table-responsive">   
         <table class="table table-hover">
             <thead>
             <tr>
-                <td><strong>Order No</strong></td>
-                <td><strong>xxxx</strong></td>
-                <td><strong>Date</strong></td>
-            <td><strong>09/90/1923</strong></td>
+                <td><strong>Order #</strong></td><td>&nbsp;xxxxaedaedfaesdfa</td>
+                <td><strong>Date:</strong></td><td>&nbsp;8809843</td>
+                 <td><strong>Total</strong>&nbsp;$12.89</td>
+                <td><strong>Delete Order</strong>&nbsp;<a href="" title="Delete Order"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
             </tr>
             </thead>
             <tbody>
-            <% for(var i=0; i<2; i++) { %>
+           
             <tr>
-                <td>Coffee</td>
-                <td>$1.90</td>
-                <td>1</td>
-                <td>Single or Recurring&nbsp;<a href="" title="View Order details"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></td>
+                <td><a href="#" data-toggle="collapse" data-target="#demo"><strong>View Items</strong></a></td>
+                <td></td>
+                 <td></td>
+                  <td></td>
+                   <td></td>
+                    <td></td>
             </tr>
-            <% } %>
+         
             </tbody>
         </table>
-        </div><!--table responsive-->
+     
+
+        <div id="demo" class="collapse">
+         <table class="table table-striped">
+                        <tr class="alert alert-success" role="alert">
+                        <td class="alert-link">Name:</td><td>Double double</td>
+                        <td class="alert-link">Price:</td><td>$12.00</td>
+                        <td class="alert-link">Quantity:</td><td>1</td>
+                        <td class="alert-link">Note:</td><td>3 sugar</td>
+                        <td class="alert-link"></td><td></td>
+                        </tr>
+                        <tr>
+                        <td class="my-heading2">Mon@</td><td>34/44/5555 44/55/44</td>
+                        <td class="my-heading2">Tues@</td><td>34/44/5555 44/55/44</td>
+                        <td class="my-heading2">Wed@</td><td>34/44/5555 44/55/44</td>
+                        <td class="my-heading2">Thurs@</td><td>34/44/5555 44/55/44</td>
+                        <td class="my-heading2">Fri@</td><td>34/44/5555 44/55/44</td>
+                        </tr>
+                        
+                        </table>
+                    </div>
+
         </div>
+          <% } %>
+        </div>   
+
 
       </div><!--inner layout box-->
 
