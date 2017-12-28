@@ -178,6 +178,19 @@ label{
     background-color: #333;
 }
 
+.navbar-inverse .navbar-nav li a:hover{
+    color: black;
+    background: white;
+}
+
+.navbar-inverse .navbar-nav li a:active{
+    color: black;
+    background: white;
+}
+.dropdown-menu li a:clicked{
+    color: black;
+    background: white;
+}
 .my-icon-theme{
     color: white;
     margin-left:44%;
@@ -203,4 +216,22 @@ label{
 .items-box{
     margin-left: 30%;
     margin-right: 30%;
+}
+
+/*over ridinng css of bootstrap badge*/
+.badge {
+    vertical-align: inherit;
+    margin-left: 0.4em;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    right: 100%;
+    margin-top: -1px;
+}
+
+/*overriding the dropdown menu color of bootstrap*/
+.dropdown-menu li a:focus{
+    color: black;
+    background: white;
 }
