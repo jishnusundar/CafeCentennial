@@ -620,6 +620,17 @@ app.get('/recurringOrder',(req,res,next) => {
         });
 
   });
+
+  app.get('/storeDashboard',(req,res,next) => {
+    
+            return res.render('index/storeDashboard',{
+            title:'Store Dashboard',
+            messages:'',
+            user:req.user?req.user.username:'',
+            userCredit:req.user?req.user.creditBalance:'N/A'
+            });
+    
+      });
 module.exports = app;
 
 
