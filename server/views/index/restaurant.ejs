@@ -15,10 +15,13 @@
         <div class="my-heading"><%= restaurant %></div>
         <hr class="style-one">
         
-        <div class="collapse" id="collapseExample">
-        <div class="alert alert-success">
-          You have <strong>x</strong> items in the cart
-        </div>
+       <div class="alert alert-success alert-dismissable" id="mydivadd">
+       <strong>Cool!</strong> Item has been added into the cart.
+       </div>
+
+       <div class="alert alert-success alert-dismissable" id="mydivdel">
+       <strong>Cool!</strong> Item has been removed from the cart.
+       </div>
 
        
         </div><!-- /row -->
@@ -43,7 +46,7 @@
             <p></p>
             <div class="tag">
            <!--TO DO: I can change this to like icon, not sure why it is for-->
-            <a onclick="<%= "add"+ items[count]._id + "()" %>" data-toggle="collapse" href="#" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+            <a onclick="<%= "add"+ items[count]._id + "()" %>"  href="#" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
             <a onclick="<%= "remove"+ items[count]._id + "()" %>" href="#" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
             </div>
             </div>
@@ -51,7 +54,11 @@
             </form>
 
             <script>
-            
+            $(function(){
+                $("#mydivadd").hide();
+                $("#mydivdel").hide();
+            });
+              
             function <%= "add"+ items[count]._id + "()" %> {
                 $.ajax({
      type: 'post',
@@ -60,6 +67,10 @@
      url: '/addToCart', //node.js server is running
      success: function(data) {
       // alert("success");
+      $('#mydivadd').show();
+      setTimeout(function() {
+                $('#mydivadd').fadeOut('fast');
+            }, 2500); 
 
      }
    });
@@ -67,15 +78,19 @@
 
             function <%= "remove"+ items[count]._id + "()" %> {
                 $.ajax({
-     type: 'post',
-     datatype: 'json',
-     data: $("<%= "#" + items[count]._id %>").serialize(),
-     url: '/removeFromCart', //node.js server is running
-     success: function(data) {
-      // alert("success");
+              type: 'post',
+              datatype: 'json',
+              data: $("<%= "#" + items[count]._id %>").serialize(),
+              url: '/removeFromCart', //node.js server is running
+              success: function(data) {
+                // alert("success");
+                $('#mydivdel').show();
+                setTimeout(function() {
+                          $('#mydivdel').fadeOut('fast');
+                      }, 2500); 
 
-     }
-   });
+              }
+            });
             }
             </script>
             <% } %>
