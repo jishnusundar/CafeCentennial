@@ -641,6 +641,15 @@ app.get('/endofsalereport',(req,res,next) => {
                 });
         
           });
+app.get('/inbox',(req,res,next) => {
+            return res.render('index/inbox',{
+            title:'Inbox',
+            messages:'',
+            user:req.user?req.user.username:'',
+            userCredit:req.user?req.user.creditBalance:'N/A'
+            });
+    
+      });
 module.exports = app;
 
 
