@@ -631,6 +631,16 @@ app.get('/recurringOrder',(req,res,next) => {
             });
     
       });
+
+app.get('/endofsalereport',(req,res,next) => {
+                return res.render('index/endofsalereport',{
+                title:'End of Sale Report',
+                messages:'',
+                user:req.user?req.user.username:'',
+                userCredit:req.user?req.user.creditBalance:'N/A'
+                });
+        
+          });
 module.exports = app;
 
 
