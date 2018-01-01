@@ -53,7 +53,7 @@
                     <% for(var i=0; i<items.length; i++) { %>
                         <div class="form-group">
                         <input type="hidden" name="<%= "itemName" + (i+1) %>" value="<%= items[i].itemName %>">
-                            <label><%= items[i].itemName %></label>
+                            <label style="width:100px"><%= items[i].itemName %></label>
                             <input type="number" name="<%= "itemCount" + (i+1) %>" value="<%= items[i].count %>" class="form-control" id="" placeholder="Quantity">
                             <div class="input-group">
                                 <div class="input-group-addon">Notes</div>

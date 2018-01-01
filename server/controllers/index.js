@@ -708,6 +708,47 @@ app.get('/orderDetails/:id',(req,res,next) => {
   
 });
 
+
+app.get('/recurringOrder',(req,res,next) => {
+
+        return res.render('index/recurringOrder',{
+        title:'Order Details',
+        messages:'',
+        user:req.user?req.user.username:'',
+        userCredit:req.user?req.user.creditBalance:'N/A'
+        });
+
+  });
+
+  app.get('/storeDashboard',(req,res,next) => {
+    
+            return res.render('index/storeDashboard',{
+            title:'Store Dashboard',
+            messages:'',
+            user:req.user?req.user.username:'',
+            userCredit:req.user?req.user.creditBalance:'N/A'
+            });
+    
+      });
+
+app.get('/endofsalereport',(req,res,next) => {
+                return res.render('index/endofsalereport',{
+                title:'End of Sale Report',
+                messages:'',
+                user:req.user?req.user.username:'',
+                userCredit:req.user?req.user.creditBalance:'N/A'
+                });
+        
+          });
+app.get('/inbox',(req,res,next) => {
+            return res.render('index/inbox',{
+            title:'Inbox',
+            messages:'',
+            user:req.user?req.user.username:'',
+            userCredit:req.user?req.user.creditBalance:'N/A'
+            });
+    
+      });
 module.exports = app;
 
 
