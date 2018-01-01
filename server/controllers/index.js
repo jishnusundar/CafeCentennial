@@ -529,15 +529,111 @@ shoppingCart.find({"userId":req.user._id},(err,result)=> { //find the user's sho
 res.end();
 });
 
+app.post('/addToFavourites',(req,res,next)=>{
+//check if item is already favourited, if yes dont do anything, else add to favs
+User.find({"_id":req.user._id},(err,result)=>{
+if(err){
+  console.log("Error fetching user profile");
+}
+else
+{
+  var thisFavs = result[0].favourites;
+  console.log("User's favourite:");
+  console.log(thisFavs);
+  var nodeFound="False";
+ 
+  for(var i=0; i<thisFavs.length; i++)
+  {
+    if(thisFavs[i].itemName==req.body.itemName && thisFavs[i].price == req.body.price && thisFavs[i].restaurant==req.body.restaurant) //if cart already has this item, increment count
+    {
+      nodeFound="True";
+      console.log("Match found")
+      console.log(thisFavs[i])
+      
+    }
+  }
+  if(nodeFound=="True") //This item already exist in favourites
+  {
+    //Do Nothing
+    console.log("Item already exist in favourites.. ignoring");
+  }
+  else // This item does not exist. add this item to favourite
+  {
+    console.log("Node found = false")
+    User.update({"_id":req.user._id},{$push: {favourites:{"itemName":req.body.itemName,"price":req.body.price,"restaurant":req.body.restaurant}}},(err2,result2)=>{
+      if(err2)
+      {
+        console.log("Error adding item to favourites");
+      }
+      else
+      {
+        res.end();
+      }
+    });
+  }
+ 
+
+}
+res.end();
+});
+});
 
 app.get('/credits',(req,res,next) => {
+  var favRests = [];
+  var favs;
+  User.find({"_id":req.user._id},(err,result)=>{
+    favs = result[0].favourites;
+  
+    console.log(favs);
+
+    favs.forEach(function(item){
+      if(favRests.indexOf(item.restaurant)==-1)
+      {
+        favRests.push(item.restaurant);
+      }
+    });
+
+    //favRests.push({"restaurant":"Tim Hortons"});
+ /*   favs.forEach(function (favItem)
+  {
+    var found = "false";
+    
+    if(favRests.length==0)
+    {
+      favRests.push({"restaurant":favItem.restaurant});
+    }
+    else if (favRests.length >0)
+    {
+      favRests.forEach(function (favRestaurant){
+        if(favRestaurant.restaurant == favItem.restaurant)
+        {
+          console.log("Match found!!!");
+          found = "true";
+        }
+        if(found=="false")
+        {
+          favRests.push({"restaurant":favItem.restaurant});
+        }
+      });
+    }
+  
+  }); */
+
+
+    console.log("Restaurants favourited");
+    console.log(favRests);
+    console.log(JSON.stringify(favRests));
+  });
+
   return res.render('index/credits',{
   title:'Credits',
   messages:'',
   user:req.user?req.user.username:'',
   userCredit:req.user?req.user.creditBalance:'N/A',
   creditMessage:'',
-  balRequired:''
+  balRequired:'',
+  favRests:JSON.stringify(favRests),
+  favItems:favs
   });
 });
   

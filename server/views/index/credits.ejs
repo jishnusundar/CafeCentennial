@@ -89,11 +89,13 @@
          
       
           <div class="favourites">
+          <% for(var i=0; i<favRests.length; i++) { %>     
+          
            <div class="col-lg-4 col-sm-6">
            
             <div class="box grid recipes">
             <input type="hidden" name="" value="">
-            <div class="by2">Tim hortons</div>
+            <div class="by2"><%= favRests[i] %></div>
             <input type="hidden" name="itemName" value="">
             <!--TO DO: Amandeep: For Jishnu: Here is thing, items can only be added into the cart from here, - is to remove any item from favourite, i have to find a way to make it appear in the way that it looks like minus is to remove item from cart-->
             <div class="items-tag">
@@ -118,47 +120,9 @@
             </div>
 
 
-          <div class="col-lg-4 col-sm-6">
-            <div class="box grid recipes">
-            <input type="hidden" name="price" value="">
-            <div class="by2">Price: 2</div>
-            <input type="hidden" name="itemName" value="">
-            <h2>itemName</h2>
-            <div class="tag">
-           <!--TO DO: I can change this to like icon, not sure why it is for-->
-            <a data-toggle="collapse" href="#" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-            <a href="#" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
-            </div><!--tag-->
-            </div><!--grid box recepies-->
-          </div>
 
-           <div class="col-lg-4 col-sm-6">
-            <div class="box grid recipes">
-            <input type="hidden" name="price" value="">
-            <div class="by2">Subway</div>
-            <input type="hidden" name="itemName" value="">
-            <h2>itemName</h2>
-            <div class="tag">
-           <!--TO DO: I can change this to like icon, not sure why it is for-->
-            <a data-toggle="collapse" href="#" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-            <a href="#" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
-            </div><!--tag-->
-            </div><!--grid box recepies-->
-          </div>
-
-           <div class="col-lg-4 col-sm-6">
-            <div class="box grid recipes">
-            <input type="hidden" name="price" value="">
-            <div class="by2">Pizza Pizza</div>
-            <input type="hidden" name="itemName" value="">
-            <h2>itemName</h2>
-            <div class="tag">
-           <!--TO DO: I can change this to like icon, not sure why it is for-->
-            <a data-toggle="collapse" href="#" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-            <a href="#" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
-            </div><!--tag-->
-            </div><!--grid box recepies-->
-          </div>
+          <% } %>    
+          
 
             </div><!--col-->
 

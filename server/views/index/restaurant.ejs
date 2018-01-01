@@ -34,7 +34,8 @@
             <div class="box grid recipes">
             <!--TO DO: Have to seprate name and cost for easy functionality-->
             <input type="hidden" name="price" value="<%= items[count].price %>">
-            <div class="by">Price: <%= items[count].price %><a><span class="glyphicon glyphicon-thumbs-up my-icon-theme" aria-hidden="true" title="Add to favourites"></span></a></div>
+            <input type="hidden" name="restaurant" value="<%= items[count].restaurant %>">
+            <div class="by">Price: <%= items[count].price %><a href="#" onclick="<%= "favourite"+ items[count]._id + "()" %>"><span class="glyphicon glyphicon-thumbs-up my-icon-theme" aria-hidden="true" title="Add to favourites"></span></a></div>
             <a href="">
             <img src="/Assets/recipe1.jpg" alt="">
             </a>
@@ -71,6 +72,19 @@
      datatype: 'json',
      data: $("<%= "#" + items[count]._id %>").serialize(),
      url: '/removeFromCart', //node.js server is running
+     success: function(data) {
+      // alert("success");
+
+     }
+   });
+            }
+
+             function <%= "favourite"+ items[count]._id + "()" %> {
+                $.ajax({
+     type: 'post',
+     datatype: 'json',
+     data: $("<%= "#" + items[count]._id %>").serialize(),
+     url: '/addToFavourites', //node.js server is running
      success: function(data) {
       // alert("success");
 
