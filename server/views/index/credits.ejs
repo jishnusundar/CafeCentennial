@@ -95,26 +95,51 @@
            
             <div class="box grid recipes">
             <input type="hidden" name="" value="">
-            <div class="by2"><%= favRests[i] %></div>
+            <div class="by2"><%= favRests[i].restaurant %></div>
             <input type="hidden" name="itemName" value="">
-            <!--TO DO: Amandeep: For Jishnu: Here is thing, items can only be added into the cart from here, - is to remove any item from favourite, i have to find a way to make it appear in the way that it looks like minus is to remove item from cart-->
-            <div class="items-tag">
-            <a data-toggle="collapse" title="Add into cart" href="#" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-             itemName1
-            <a href="#" title="Remove favourite" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+         
+
+            <% for(var n=0; n<favItems.length; n++) {%>
+             <% if(favRests[i].restaurant==favItems[n].restaurant) { %>
+             <form id="<%= "favouriteItem" + n %>">
+             <input type="hidden" name="itemName" value="<%= favItems[n].itemName %>">
+             <input type="hidden" name="price" value="<%= favItems[n].price %>">
+             </form>
+             <div class="items-tag">
+            <a data-toggle="collapse" title="Add into cart" onclick="<%= "addItem"+ n + "toCart()" %>" href="#" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+             <%= favItems[n].itemName %>
+              <a href="#" onclick="<%= "removeItem"+ n + "fromCart()" %>" title="Remove favourite" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
             </div><!--tag-->
 
-            <div class="items-tag">
-            <a data-toggle="collapse" title="Add into cart" href="#" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-             itemName1
-            <a href="#" title="Remove favourite" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-            </div><!--tag-->
+            <script>
+             function <%= "addItem"+ n + "toCart()" %> {
+                $.ajax({
+     type: 'post',
+     datatype: 'json',
+     data: $("<%= "#" + "favouriteItem" + n %>").serialize(),
+     url: '/addToCart', //node.js server is running
+     success: function(data) {
+     }
+   });
+            }
 
-            <div class="items-tag">
-            <a data-toggle="collapse" title="Add into cart" href="#" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-            itemName1
-            <a href="#" title="Remove favourite" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-            </div><!--tag-->
+               function <%= "removeItem"+ n + "fromCart()" %> {
+                $.ajax({
+              type: 'post',
+              datatype: 'json',
+              data: $("<%= "#" + "favouriteItem" + n %>").serialize(),
+              url: '/removeFromCart', //node.js server is running
+              success: function(data) {
+              }
+            });
+            }
+
+            </script>
+
+             <% } else {} %>
+           
+            <% } %>
+           
 
             </div><!--grid box recepies-->
             </div>

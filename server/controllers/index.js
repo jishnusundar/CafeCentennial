@@ -581,6 +581,7 @@ res.end();
 app.get('/credits',(req,res,next) => {
   var favRests = [];
   var favs;
+  var favRestList =[];
   User.find({"_id":req.user._id},(err,result)=>{
     favs = result[0].favourites;
   
@@ -593,48 +594,25 @@ app.get('/credits',(req,res,next) => {
       }
     });
 
-    //favRests.push({"restaurant":"Tim Hortons"});
- /*   favs.forEach(function (favItem)
-  {
-    var found = "false";
-    
-    if(favRests.length==0)
-    {
-      favRests.push({"restaurant":favItem.restaurant});
-    }
-    else if (favRests.length >0)
-    {
-      favRests.forEach(function (favRestaurant){
-        if(favRestaurant.restaurant == favItem.restaurant)
-        {
-          console.log("Match found!!!");
-          found = "true";
-        }
-        if(found=="false")
-        {
-          favRests.push({"restaurant":favItem.restaurant});
-        }
-      });
-    }
-  
-  }); */
-
-
+    favRests.forEach(function(item){
+      favRestList.push({restaurant:item});
+    });
     console.log("Restaurants favourited");
     console.log(favRests);
-    console.log(JSON.stringify(favRests));
+    
+    return res.render('index/credits',{
+      title:'Credits',
+      messages:'',
+      user:req.user?req.user.username:'',
+      userCredit:req.user?req.user.creditBalance:'N/A',
+      creditMessage:'',
+      balRequired:'',
+      favRests:favRestList,
+      favItems:favs
+      });
   });
 
-  return res.render('index/credits',{
-  title:'Credits',
-  messages:'',
-  user:req.user?req.user.username:'',
-  userCredit:req.user?req.user.creditBalance:'N/A',
-  creditMessage:'',
-  balRequired:'',
-  favRests:JSON.stringify(favRests),
-  favItems:favs
-  });
+  
 });
   
 app.post('/credits',(req,res,next)=>{
