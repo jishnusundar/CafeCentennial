@@ -578,6 +578,45 @@ res.end();
 });
 });
 
+app.get('/removeFromFavs/:itemName&:price&:restaurant',(req,res,next)=>{
+  User.find({"_id":req.user._id},(err,result)=>{
+    if(err){
+      console.log("Error fetching user profile");
+    }
+    else
+    {
+      var thisFavs = result[0].favourites;
+      console.log("User's favourite:");
+      console.log(thisFavs);
+     
+     
+      for(var i=0; i<thisFavs.length; i++)
+      {
+        if(thisFavs[i].itemName==req.params.itemName && thisFavs[i].price == req.params.price && thisFavs[i].restaurant==req.params.restaurant) //if cart already has this item, increment count
+        {
+          nodeFound="True";
+          console.log("Match found")
+          console.log(thisFavs[i])
+          User.update({"_id":req.user._id},{ $pull: { favourites: { "itemName":req.params.itemName,"price":req.params.price,"restaurant":req.params.restaurant } }  },(err1,reslt)=>{
+            if(err1)
+            {
+              console.log("Error removing item from favourites");
+            }
+            else
+            {
+              console.log("Item removed from favourites");
+              res.redirect('/credits');
+            }
+          });
+          
+        }
+      }
+      
+    }
+    
+    });
+});
+
 app.get('/credits',(req,res,next) => {
   var favRests = [];
   var favs;

@@ -104,11 +104,12 @@
              <form id="<%= "favouriteItem" + n %>">
              <input type="hidden" name="itemName" value="<%= favItems[n].itemName %>">
              <input type="hidden" name="price" value="<%= favItems[n].price %>">
+             <input type="hidden" name="restaurant" value="<%= favRests[i].restaurant %>">
              </form>
              <div class="items-tag">
             <a data-toggle="collapse" title="Add into cart" onclick="<%= "addItem"+ n + "toCart()" %>" href="#" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
              <%= favItems[n].itemName %>
-              <a href="#" onclick="<%= "removeItem"+ n + "fromCart()" %>" title="Remove favourite" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+              <a href="<%= "/removeFromFavs/" +favItems[n].itemName+"&"+favItems[n].price+"&"+favRests[i].restaurant %>" title="Remove favourite" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
             </div><!--tag-->
 
             <script>
@@ -123,12 +124,12 @@
    });
             }
 
-               function <%= "removeItem"+ n + "fromCart()" %> {
+               function <%= "removeItem"+ n + "fromFavs()" %> {
                 $.ajax({
               type: 'post',
               datatype: 'json',
               data: $("<%= "#" + "favouriteItem" + n %>").serialize(),
-              url: '/removeFromCart', //node.js server is running
+              url: '/removeFromFavs', //node.js server is running
               success: function(data) {
               }
             });
