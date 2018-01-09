@@ -53,21 +53,24 @@
                     <% for(var i=0; i<items.length; i++) { %>
                         <div class="form-group">
                         <input type="hidden" name="<%= "itemName" + (i+1) %>" value="<%= items[i].itemName %>">
-                            <label style="width:100px"><%= items[i].itemName %></label>
+                        <fieldset class="fieldset-pad-top">
+                            <label class="cart-label-width"><%= items[i].itemName %></label>
+                            
                             <input type="number" name="<%= "itemCount" + (i+1) %>" value="<%= items[i].count %>" class="form-control" id="" placeholder="Quantity">
                             <div class="input-group">
-                                <div class="input-group-addon">Notes</div>
+                                <div class="input-group-addon" >Notes</div>
                                 <input type="text" name="<%= "itemText" + (i+1) %>" class="form-control" id="" placeholder="Customize Order" />
-                                <input type="hidden" name="<%= "itemPrice" + (i+1) %>" value="<%= items[i].price %>">
+                                <input type="hidden"  name="<%= "itemPrice" + (i+1) %>" value="<%= items[i].price %>">
                                 <div class="input-group-addon"></div>
                             </div>
+                        </fieldset>
                         </div>
                         <% } %>
 
 
 
                         <div class="form-group">
-                            <div class="radio">
+                            <div class="radio radio-pad-top-bot">
                                 <label>Single Order
                                     <input type="radio" name="orderType" id="blankRadio" value="single" aria-label="..." onclick="javascript:singleRecurCheck();">
                                 </label>
@@ -79,7 +82,7 @@
                         <br>
 
                         <div class="form-group" id="date" >
-                            <table class="table table-condensed" id="single" style="display:none">
+                            <table class="table table-condensed table-display-none" id="single">
                                 <tr>
                                     <td>
                                         <input type="text" name="singleOrderDate" class="form-control" id="" placeholder="Date" >
@@ -100,9 +103,9 @@
                                     </td>
                                 </tr>
                             </table>
-                            <table class="table table-condensed" id="recurring" style="display:none">
+                            <table class="table table-condensed table-display-none" id="recurring">
                             <tr>
-                            <td colspan="100%" style="padding-top:10px;"><label>Specify time only for the days you want</label></td>
+                            <td colspan="100%" class="td-pad-top"><label>Specify time only for the days you want</label></td>
                             
                             </tr>
                             <tr>
@@ -165,7 +168,7 @@
                     <!--left div-->
                     <div class="col-md-4">
                         <div class="display-buttons-block">
-                            <input type="submit" value="Proceed" class="btn btn-primary btn-lg">
+                            <input type="submit" value="Proceed" class="btn btn-primary btn-lg btn-proceed">
                             <a class="btn btn-primary btn-lg" href="/home">Add More Items</a>
                             <a class="btn btn-primary btn-lg" href="/clearCartAndCancel">Clear Cart and Cancel Order</a>
                         </div>
