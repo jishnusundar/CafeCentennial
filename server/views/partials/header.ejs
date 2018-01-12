@@ -58,19 +58,16 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/shoppingCart"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Cart<span class="badge badge-light">9</span></a></li>
+                <li><a href="/shoppingCart"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Cart</a></li>
                 <li><a href="/credits">Balance: $<%= userCredit %></a></li>
                 <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <%= user %> <span class="caret"></span></a>
                 <ul class="dropdown-menu test-color">
                     <li><a href="/orderHistory">Orders</a></li>
                     <li><a href="/recurringOrder">Active Orders</a></li>
+                    <li><a href="/inbox">Inbox</a></li>
                     <li class="dropdown-submenu">
-                    <a class="test" tabindex="-1" href="#">Inbox<span class="caret"></span></a>
-                    <ul class="dropdown-menu test-color">
-                    <li><a tabindex="-1" href="/inbox">Your order has been placed</a></li>
-                    <li><a tabindex="-1" href="/inbox">2nd level dropdown</a></li>
-                    </ul>
+                    
                     </li>
                     <li role="separator" class="divider"></li>
                     <li><a href="/logout">Sign Out</a></li>

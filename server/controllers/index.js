@@ -92,7 +92,7 @@ return res.render('index/login', {
         email: req.body.emailId,
         creditBalance:'10',
         favourites:[],
-        notifications:[],
+        notifications:[{"message":"Welcome to CafeCentennial. As a welcome reward, you have been credited with $10 CAD. Enjoy!"}],
         activeRecurringOrders:[]
       }),
       req.body.password,
@@ -166,6 +166,7 @@ restaurant.find((err, restaurants) => {
 app.get('/restaurant/:restaurantName',(req,res,next) => {
 
 menuItem.find({"restaurant":req.params.restaurantName},(err, items) => {
+  
     if (err) {
       return console.error(err);
     }
@@ -314,6 +315,7 @@ app.post('/confirmCheckout',(req,res,next)=>{
 app.get('/processOrder',(req,res,next)=> {
   //CREATE ORDER IN DB
 var pendingOrder = req.session.pendingOrder;
+var pendingOrderId;
 if(parseFloat(req.user.creditBalance) >= parseFloat(pendingOrder.grandTotal)) //user have balance to purchase this
 {
   order.create(pendingOrder,(err,result)=>{
@@ -322,9 +324,14 @@ if(parseFloat(req.user.creditBalance) >= parseFloat(pendingOrder.grandTotal)) //
       console.log("Error creating order");
     }
     else
-    { //order created successfully
+    { 
+      //order created successfully
+      pendingOrder = result;
+      var pendingOrderId = order.findOne(pendingOrder)._id;
+      pendingOrder._id=pendingOrderId;
       console.log("Order created")
       console.log(result);
+      console.log(pendingOrderId);
       req.session.pendingOrder=null; //clear order from session memory
       
       User.update({"_id":req.user._id},{$set:{creditBalance:(parseFloat(req.user.creditBalance) - parseFloat(pendingOrder.grandTotal)).toFixed(2)}},(err4,result4)=>{
@@ -338,6 +345,34 @@ if(parseFloat(req.user.creditBalance) >= parseFloat(pendingOrder.grandTotal)) //
           console.log("User balance depreciated");
         }
       })
+      if(pendingOrder.orderType=="recurring")
+      {
+        User.update({"_id":req.user._id},{$push:{activeRecurringOrders:pendingOrder}},(err8,result8)=>{
+          //Depreciate user's balance
+          if (err8)
+          {
+            console.log("Error adding active order to user's profile")
+          }
+          else
+          {
+            console.log("Active order added to user profile");
+          }
+        })
+        User.update({"_id":req.user._id},{$push:{notifications:{"message":"Your recurring order has been placed"}}},(err8,result8)=>{
+          //Depreciate user's balance
+          if (err8)
+          {
+            console.log("Error adding active order to user's profile")
+          }
+          else
+          {
+            console.log("Active order added to user profile");
+          }
+        })
+      }
+     
+     
+
       shoppingCart.update({"userId":req.user._id},{ $pull: { items: {} }  },(error3,feedBack2)=>{ //clear shopping cart and take user home
   
         if(error3)
@@ -376,11 +411,27 @@ else //ask user to add balance to credit
     user:req.user?req.user.username:'',
     userCredit:req.user?req.user.creditBalance:'N/A',
     creditMessage:'Please reload your credits to place this order',
-    balRequired:pendingOrder.grandTotal
+    balRequired:pendingOrder.grandTotal,
+    favRests:{},
+    favItems:{}
     });
 }
 
 
+});
+
+app.get('/deleteRecurringOrder/:id',(req,res,next)=> {
+  console.log(req.params.id);
+  User.update({"_id":req.user._id},{$pull:{activeRecurringOrders:{$elemMatch:{"_id":req.params.id}}}},(error,result)=>{
+    if(error)
+    {
+      console.log("Error removing order from user's profile");
+    }
+    else{
+      console.log("Order rremoved from user's profile");
+      res.redirect('/recurringOrder');
+    }
+  });
 });
 
 app.get('/clearCartAndCancel',(req,res,next)=>{
@@ -670,7 +721,9 @@ app.post('/credits',(req,res,next)=>{
         user:req.user?req.user.username:'',
         userCredit:req.user?req.user.creditBalance:'N/A',
         creditMessage:'Credit reloaded successfully!',
-        balRequired:''
+        balRequired:'',
+        favRests:{},
+        favItems:{}
         });
     }
   });
@@ -727,13 +780,17 @@ app.get('/orderDetails/:id',(req,res,next) => {
 
 
 app.get('/recurringOrder',(req,res,next) => {
-
-        return res.render('index/recurringOrder',{
-        title:'Order Details',
-        messages:'',
-        user:req.user?req.user.username:'',
-        userCredit:req.user?req.user.creditBalance:'N/A'
-        });
+  User.find({"_id":req.user._id},(err,result)=>{
+    var recurringOrders = result[0].activeRecurringOrders;
+    
+    return res.render('index/recurringOrder',{
+      title:'Order Details',
+      messages:'',
+      user:req.user?req.user.username:'',
+      userCredit:req.user?req.user.creditBalance:'N/A',
+      recurringOrders:recurringOrders
+      });
+  });
 
   });
 
@@ -757,13 +814,18 @@ app.get('/endofsalereport',(req,res,next) => {
                 });
         
           });
+
 app.get('/inbox',(req,res,next) => {
-            return res.render('index/inbox',{
-            title:'Inbox',
-            messages:'',
-            user:req.user?req.user.username:'',
-            userCredit:req.user?req.user.creditBalance:'N/A'
-            });
+  User.find({"_id":req.user._id},(error,result)=>{
+    return res.render('index/inbox',{
+      title:'Inbox',
+      messages:'',
+      notifications:result[0].notifications,
+      user:req.user?req.user.username:'',
+      userCredit:req.user?req.user.creditBalance:'N/A'
+      });
+  })
+            
     
       });
 module.exports = app;

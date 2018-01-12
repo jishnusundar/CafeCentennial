@@ -27,10 +27,10 @@
         <div class="login-box">
          <div class="inner-login-box">
     
-         <h5>Welcome Ammu</h5>
-
-         <p>Your order has been placed. bla bla bla akjsefiauldsn fadshfbasdjlfbv asjadshgbcjhadbshjadbcjhadbcjhadbschjbadsjcb</p>
-
+         <h5>Hi <%= user %>, you have messages</h5>
+         <% for(var i=0;i<notifications.length;i++) { %>
+         <p><%= notifications[i].message %></p>
+         <% } %>
     </div>
     </div>
     </div>

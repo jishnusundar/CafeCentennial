@@ -40,7 +40,7 @@
             <input type="hidden" name="restaurant" value="<%= items[count].restaurant %>">
             <div class="by">Price: <%= items[count].price %><a href="#" onclick="<%= "favourite"+ items[count]._id + "()" %>"><span class="glyphicon glyphicon-thumbs-up my-icon-theme" aria-hidden="true" title="Add to favourites"></span></a></div>
             <a href="">
-            <img src="/Assets/recipe1.jpg" alt="">
+            <img src="<%=items[count].imageURL%>" alt="">
             </a>
             <input type="hidden" name="itemName" value="<%= items[count].itemName %>">
             <h2><%= items[count].itemName %></h2>
