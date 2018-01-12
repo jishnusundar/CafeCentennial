@@ -51,20 +51,27 @@
                 <input type="hidden" name="numOfItems" value="<%= items.length %>">
                     <div class="col-md-8">
                     <% for(var i=0; i<items.length; i++) { %>
+                        
+
                         <div class="form-group">
                         <input type="hidden" name="<%= "itemName" + (i+1) %>" value="<%= items[i].itemName %>">
-                        <fieldset class="fieldset-pad-top">
+                        
                             <label class="cart-label-width"><%= items[i].itemName %></label>
                             
                             <input type="number" name="<%= "itemCount" + (i+1) %>" value="<%= items[i].count %>" class="form-control" id="" placeholder="Quantity">
-                            <div class="input-group">
-                                <div class="input-group-addon" >Notes</div>
+
+                            </div>
+                            <div class="space">
+                            </div>
+                            <div class="form-group">
+                                <label class="cart-label-width">Notes</label>
+    
                                 <input type="text" name="<%= "itemText" + (i+1) %>" class="form-control" id="" placeholder="Customize Order" />
                                 <input type="hidden"  name="<%= "itemPrice" + (i+1) %>" value="<%= items[i].price %>">
-                                <div class="input-group-addon"></div>
+                               
                             </div>
-                        </fieldset>
-                        </div>
+                      
+              
                         <% } %>
 
 

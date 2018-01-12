@@ -275,5 +275,9 @@ label{
 }
 
 .checkout-final-cart-width{
-    width:140%;
+    width:100%;
+}
+
+.space{
+    margin-top: 5px;
 }
