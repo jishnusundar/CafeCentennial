@@ -29,7 +29,7 @@
                 <td><%= orders[i]._id %></td>
                 <td><%= orders[i].grandTotal %></td>
                 <td><%= orders[i].creationDate %></td>
-                <td>Single or Recurring&nbsp;<a href="<%= "/orderDetails/"+ orders[i]._id %>" title="View Order details"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></td>
+                <td><%= orders[i].orderType %>&nbsp;<a href="<%= "/orderDetails/"+ orders[i]._id %>" title="View Order details"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></td>
             </tr>
             <% } %>
             </tbody>
